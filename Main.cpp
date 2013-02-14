@@ -15,7 +15,7 @@ int main()
 
 	double focalLen = 2;
 	double topWidth = 17;
-	Scene* theScene = new Scene(Colour(0, 0, 0));
+	Scene* theScene = new Scene(Colour(50, 50, 50));
 
 	Cylinder* centerCylinder = new Cylinder(Vector3(0, 3, 0), Vector3(1, 0, 0), Vector3(0, 1, 1), 1, 5, new Diffuse(Colour(50, 50, 50)));
 	theScene->addForm(centerCylinder);

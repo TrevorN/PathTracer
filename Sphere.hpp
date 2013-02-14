@@ -3,6 +3,7 @@
 
 #include "Ray.hpp"
 #include "Vector3.hpp"
+#include "Form.hpp"
 
 class Sphere : public Form
 {

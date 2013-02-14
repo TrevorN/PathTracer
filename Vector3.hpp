@@ -2,9 +2,7 @@
 #define C_VECTOR3
 
 class Vector3{
-		double x;
-		double y;
-		double z;
+		double comps[3];
 	public:
 		Vector3(double, double, double);
 		Vector3();
