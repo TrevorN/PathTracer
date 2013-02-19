@@ -20,7 +20,7 @@ double Vector3::getMagnitude()
 Vector3 Vector3::normalize()
 {
 	double mag = getMagnitude();
-	return new Vector3(x / mag, y / mag, z / mag);
+	return Vector3(x / mag, y / mag, z / mag);
 }
 
 double Vector3::getX()
@@ -44,12 +44,12 @@ double Vector3::getZ()
  */
 Vector3 Vector3::crossProduct(Vector3 other)
 {
-	return new Vector3((y * other->getZ()) - (z * other->getY()),
-		(z * other->getX()) - (x * other->getZ()),
-		(x * other->getY()) - (y * other->getX()));
+	return Vector3((y * other.getZ()) - (z * other.getY()),
+		(z * other.getX()) - (x * other.getZ()),
+		(x * other.getY()) - (y * other.getX()));
 }
 
 Vector3 Vector3::scale(double scalar)
 {
-	return new Vector3(x * scalar, y * scalar, z * scalar);
+	return Vector3(x * scalar, y * scalar, z * scalar);
 }
