@@ -1,10 +1,6 @@
 #include "Vector3.hpp"
 #include <cmath>
 
-double x;
-double y;
-double z;
-
 Vector3::Vector3(double xin, double yin, double zin)
 {
 	x = xin;
