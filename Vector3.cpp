@@ -1,15 +1,16 @@
 #include "Vector3.hpp"
 #include <cmath>
 
-double x;
-double y;
-double z;
-
 Vector3::Vector3(double xin, double yin, double zin)
 {
 	x = xin;
 	y = yin;
 	z = zin;
+}
+
+Vector3::Vector3()
+{
+
 }
 
 double Vector3::getMagnitude()
@@ -38,6 +39,27 @@ double Vector3::getZ()
 	return z;
 }
 
+Vector3 Vector3::operator+(Vector3 other)
+{
+	double newX = x + other.getX();
+	double newY = y + other.getY();
+	double newZ = z + other.getZ();
+	return Vector3(newX, newY, newZ);
+}
+
+Vector3 Vector3::operator-(Vector3 other)
+{
+	double newX = x - other.getX();
+	double newY = y - other.getY();
+	double newZ = z - other.getZ();
+	return Vector3(newX, newY, newZ);
+}
+
+Vector3 Vector3::operator*(double scalar)
+{
+	return Vector3(x * scalar, y * scalar, z * scalar);
+}
+
 /*
  * Takes the cross product of this vector as A
  * with the other vector (argument) as B.
@@ -47,9 +69,4 @@ Vector3 Vector3::crossProduct(Vector3 other)
 	return Vector3((y * other.getZ()) - (z * other.getY()),
 		(z * other.getX()) - (x * other.getZ()),
 		(x * other.getY()) - (y * other.getX()));
-}
-
-Vector3 Vector3::scale(double scalar)
-{
-	return Vector3(x * scalar, y * scalar, z * scalar);
 }
