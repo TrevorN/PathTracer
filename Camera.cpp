@@ -15,6 +15,7 @@ Camera::Camera(Scene scene, Vector3 location, Vector3 focus, double focalLen, do
 	this->resX = resX;
 	this->resY = resY;
 	this->longevity = longevity;
+	up = Vector3(0, 0, 1);
 	AA = false;
 	image = new char[resX * 3 * resY];
 }
@@ -30,43 +31,16 @@ Camera::Camera(Scene scene, Vector3 location, Vector3 focus, double focalLen, do
 	this->resY = resY;
 	this->aaDepth = aaDepth;
 	this->longevity = longevity;
+	up = Vector3(0, 0, 1);
 	AA = true;
 	image = new char[resX * 3 * resY];
 }
 
 Camera::~Camera()
 {
-	delete image;
+	delete [] image;
 }
 
-/*
-void Camera::takeSample()
-{
-	double pixWidth = topWidth / resX;
-
-	for(int i = 0; i < resX; i++)
-	{
-	
-		for(int j = 0; j < resY; j++)i
-		{
-			double camplaneX = pixWidth * ((i * 2) - resX);
-			double camplaneZ = pixWidth * ((j * 2) - resY);
-			double camplaneY = focalLen;
-			//First we tilt it up/down, you know, because bits ain't shift. This is around X axis.
-			double theta = std::asin(rotation.getZ() / focalLen);
-			double tmpX = camplaneX;
-			double tmpY = (camplaneY * std::cos(theta)) - (camplaneY * std::sin(theta));
-			double tmpZ = (camplaneZ * std::sin(theta)) + (camplaneZ * std::cos(theta));
-			//Now we spin around Z so that we are looking in the right direction.
-			theta = std::atan(rotation.getY() / rotation.getX());
-			double newX = (tmpX * std::cos(theta)) - (tmpX * std::sin(theta));
-			double newY = (tmpX * std::sin(theta)) + (tmpX * std::cos(theta));
-			double newZ = tmpZ;
-			//Ray ray = new Ray(location, targetOnImage, scene);
-			//ray.fire();
-	}
-}
-*/
 
 void Camera::takeSample()
 {
