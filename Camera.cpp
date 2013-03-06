@@ -44,10 +44,9 @@ Camera::~Camera()
 void Camera::takeSample()
 {
 	double pixWidth = topWidth / resX;
-	Vector3 lineoffocus = rotation * focalLen;
-	Vector3 top = up - up.projectOnto(lineoffocus);
-	Vector3 right = lineoffocus.crossProduct(top);
-	right = right.normalize();
+	Vector3 direction = rotation * focalLen;
+	Vector3 top = up - up.projectOnto(direction);
+	Vector3 right = direction.crossProduct(top).normalize();
 	int halfwidth = resX/2;
 	int halfheight = resY/2;
 
@@ -58,7 +57,7 @@ void Camera::takeSample()
 
 			Vector3 resultant;
 
-			resultant = top*(i-halfwidth) + right*(j-halfheight) + lineoffocus;
+			resultant = top*(i-halfwidth) + right*(j-halfheight) + direction;
 			std::cout << " X: " << resultant.getX() << " Y: " << resultant.getY() << " Z: " << resultant.getZ();
 
 			//Ray ray = new Ray(location, targetOnImage, scene);
