@@ -10,6 +10,7 @@ Camera::Camera(Scene scene, Vector3 location, Vector3 focus, double focalLen, do
 	this->rotation = focus - location;
 	this->rotation = this->rotation.normalize();
 	this->focalLen = focalLen;
+	std::cout << focalLen << "\n";
 	this->topWidth = topWidth;
 	this->resX = resX;
 	this->resY = resY;

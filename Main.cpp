@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-	Camera cam = Camera(Scene(), Vector3(0, 0, 0), Vector3(1, 0, 0), 5, 5, 5, 5, 5);
+	Camera cam = Camera(Scene(), Vector3(0, 0, 0), Vector3(0, 1, 0), 5.0, 5.0, 5, 5, 5);
 	cam.takeSample();
 	return 0;
 }
