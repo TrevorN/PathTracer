@@ -70,3 +70,16 @@ Vector3 Vector3::crossProduct(Vector3 other)
 		(z * other.getX()) - (x * other.getZ()),
 		(x * other.getY()) - (y * other.getX()));
 }
+
+int Vector3::dotProduct(Vector3 other)
+{
+
+	return (x*other.getX())+(y*other.getY())+(z*other.getZ());
+}
+
+Vector3 Vector3::projectOnto(Vector3 other)
+{
+
+	return other.normalize() * dotProduct(other.normalize());
+
+}

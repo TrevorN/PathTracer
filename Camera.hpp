@@ -6,7 +6,7 @@
 
 class Camera
 {
-		Vector3 location, rotation;
+		Vector3 location, rotation, up;
 		double focalLen, topWidth;
 		int resX, resY, aaDepth, samplesTaken, longevity;
 		bool AA;

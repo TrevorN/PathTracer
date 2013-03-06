@@ -11,6 +11,8 @@ class Vector3{
 		double getMagnitude();//Done
 		Vector3 normalize();//Done
 		Vector3 crossProduct(Vector3);//Done
+		int dotProduct(Vector3);//Done
+		Vector3 projectOnto(Vector3);//Done
 		Vector3 operator*(double);
 		Vector3 operator+(Vector3);
 		Vector3 operator-(Vector3);

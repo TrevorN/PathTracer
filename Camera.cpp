@@ -4,7 +4,7 @@
 #include <cmath>
 #include <iostream>
 
-Camera::Camera(Scene scene, Vector3 location, Vector3 focus, double focalLength, double topWidth, int resX, int resY, int longevity)
+Camera::Camera(Scene scene, Vector3 location, Vector3 focus, double focalLen, double topWidth, int resX, int resY, int longevity)
 {
 	this->location = location;
 	this->rotation = focus - location;
@@ -14,11 +14,12 @@ Camera::Camera(Scene scene, Vector3 location, Vector3 focus, double focalLength,
 	this->resX = resX;
 	this->resY = resY;
 	this->longevity = longevity;
+	up = Vector3(0, 0, 1);
 	AA = false;
 	image = new char[resX * 3 * resY];
 }
 
-Camera::Camera(Scene scene, Vector3 location, Vector3 focus, double focalLength, double topWidth, int resX, int resY, int longevity, int aaDepth)
+Camera::Camera(Scene scene, Vector3 location, Vector3 focus, double focalLen, double topWidth, int resX, int resY, int longevity, int aaDepth)
 {
 	this->location = location;
 	this->rotation = focus - location;
@@ -29,6 +30,7 @@ Camera::Camera(Scene scene, Vector3 location, Vector3 focus, double focalLength,
 	this->resY = resY;
 	this->aaDepth = aaDepth;
 	this->longevity = longevity;
+	up = Vector3(0, 0, 1);
 	AA = true;
 	image = new char[resX * 3 * resY];
 }
@@ -41,26 +43,26 @@ Camera::~Camera()
 void Camera::takeSample()
 {
 	double pixWidth = topWidth / resX;
+	Vector3 lineoffocus = rotation * focalLen;
+	Vector3 top = up - up.projectOnto(lineoffocus);
+	Vector3 right = lineoffocus.crossProduct(top);
+	right = right.normalize();
+	int halfwidth = resX/2;
+	int halfheight = resY/2;
 
 	for(int i = 0; i < resX; i++)
 	{
-		double camplaneX = pixWidth * (i - (resX / 2.0));
-
 		for(int j = 0; j < resY; j++)
 		{
-			double camplaneY = pixWidth * (i - (resY / 2.0));
-			double newMagnitude = std::sqrt((focalLen * focalLen) + (camplaneX + camplaneX));
-			double theta = std::atan(camplaneX / focalLen);
-			double camHeading = std::atan(rotation.getY() / rotation.getX());
-			double newX = newMagnitude * std::cos(theta + camHeading);
-			double newY = newMagnitude * std::sin(theta + camHeading);
-			camHeading = std::atan(rotation.getZ() / rotation.getX());
-			newMagnitude = std::sqrt((focalLen * focalLen) + (camplaneY + camplaneY));
-			double newZ = newMagnitude * std::sin(theta + camHeading);
-			Vector3 targetOnImage = Vector3(newX, newY, newZ);
+
+			Vector3 resultant;
+
+			resultant = top*(i-halfwidth) + right*(j-halfheight) + lineoffocus;
+			std::cout << " X: " << resultant.getX() << " Y: " << resultant.getY() << " Z: " << resultant.getZ();
+
 			//Ray ray = new Ray(location, targetOnImage, scene);
 			//ray.fire();
-			std::cout << "X: " << newX << "Y: " << newY << "Z: " << newZ;
+
 		}
 		std::cout << "\n";
 	}
