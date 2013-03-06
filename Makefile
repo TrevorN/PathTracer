@@ -5,5 +5,5 @@ HEADERS = Scene.hpp Vector3.hpp Camera.hpp #Ray.o
 CFLAGS =
 
 all : ${OBJECTS}
-	${CXX} ${CFLAGS} -o PathTracer ${OBJECTS} ${HEADERS}
+	${CXX} ${CFLAGS} -o bin/PathTracer ${OBJECTS} ${HEADERS}
 
