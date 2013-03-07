@@ -7,6 +7,7 @@
 class Camera
 {
 		Vector3 location, rotation, up;
+		Scene environment;
 		double focalLen, topWidth;
 		int resX, resY, aaDepth, samplesTaken, longevity;
 		bool AA;

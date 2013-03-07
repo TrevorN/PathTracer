@@ -1,31 +1,32 @@
 #include "Ray.hpp"
+#include "Form.hpp"
 
-Ray::Ray(Vector3 location, Vector3 focus, Scene scene, int longevity)
+Ray::Ray(Vector3 location, Vector3 focus, Scene* sceneRef, int longevity)
 {
 
 	this->rotation = focus - location;
 	this->rotation = this->rotation.normalize();;
 	this->location = location;
-	this->scene = scene;
+	this->sceneRef = sceneRef;
 	this->longevity = longevity;
 
 }
 
-void Ray::fire(){
+int Ray::fire(){
 
 	while(longevity > 0){
 
-		int corpusSize = Scene->formQuantity();
+		int corpusSize = sceneRef->formQuantity();
 		int dist = 0;
 		int tmpdist = 0;
 		int closestForm = -1;
-		Form[] formList = Scene->getForms();
-		for(int i = 0; i < length; i++){
+		Form* formList = sceneRef->getForms();
+		for(int i = 0; i < corpusSize; i++){
 
-			if((tmpdist = Form[i].collideWith(position, direction))!=-1){
+			if((tmpdist = formList[i].collideWith(location, rotation))!=-1){
 				if(tmpdist < dist){
 					
-					closestform = i;
+					closestForm = i;
 					dist = tmpdist;
 
 				}
@@ -33,15 +34,15 @@ void Ray::fire(){
 
 		}
 
-		if(closestform == -1){
+		if(closestForm == -1){
 
-			color = Scene.getAmbience();
+			color = sceneRef->getAmbience();
 			break;
 
 		}
 
-		Ray refl = Form[closestform].reflect(position, direction);
-		color -= Form[closestform].getColor(position, direction);
+		Vector3 l = formList[closestForm].reflect(location, rotation);
+		color -= formList[closestForm].getColour(location, rotation);
 		longevity--;
 
 	}

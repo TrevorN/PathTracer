@@ -1,8 +1,7 @@
-#include "Camera.hpp"
-#include "Scene.hpp"
-#include "Vector3.hpp"
 #include <cmath>
 #include <iostream>
+#include "Camera.hpp"
+#include "Ray.hpp"
 
 Camera::Camera(Scene scene, Vector3 location, Vector3 focus, Vector3 up, double focalLen, double topWidth, int resX, int resY, int longevity)
 {
@@ -57,8 +56,8 @@ void Camera::takeSample()
 			Vector3 resultant = top*(i-halfwidth) + right*(j-halfheight) + direction;
 			std::cout << " X: " << resultant.getX() << " Y: " << resultant.getY() << " Z: " << resultant.getZ();
 
-			//Ray ray = new Ray(location, targetOnImage, scene);
-			//ray.fire();
+			Ray ray = Ray(location, resultant, &environment, longevity);
+			ray.fire();
 
 		}
 		std::cout << "\n";

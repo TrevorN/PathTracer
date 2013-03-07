@@ -8,13 +8,13 @@ class Ray{
 
 		Vector3 location, rotation;
 		int color, longevity;
-		Scene* scene;
+		Scene* sceneRef;
 
 	public:
 		Ray();
-		Ray(Vector3, Vector3, Scene* scene, int);
+		Ray(Vector3, Vector3, Scene* sceneRef, int);
 		int fire();
 		
 };
-#endif
 
+#endif
