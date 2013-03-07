@@ -40,25 +40,26 @@ Camera::~Camera()
 	delete [] image;
 }
 
-
 void Camera::takeSample()
 {
-	
-
 	double pixWidth = topWidth / resX;
-	
-	Vector3 rootDir = rotation * focalLen;
-	Vector3 xDir = up.crossProduct(rootDir).normalize();
-	Vector3 yDir = xDir.crossProduct(rootDir).normalize();
+	Vector3 direction = rotation * focalLen;
+	Vector3 top = up - up.projectOnto(direction);
+	Vector3 right = direction.crossProduct(top).normalize();
+	int halfwidth = resX/2;
+	int halfheight = resY/2;
 
-	for(int j = 0; j < resY; j++)
+	for(int i = 0; i < resX; i++)
 	{
-		for(int i = 0; i < resX; i++)
+		for(int j = 0; j < resY; j++)
 		{
-			Vector3 vec1 = xDir * ((i * 2) - (resX * pixWidth));
-			Vector3 vec2 = yDir * ((j * 2) - (resY * pixWidth));
-			Vector3 rayVec = rootDir + vec1 + vec2;
-			std::cout << "X: " << rayVec.getX() << " Y: " << rayVec.getY() << " Z: " << rayVec.getZ() << "\t";
+
+			Vector3 resultant = top*(i-halfwidth) + right*(j-halfheight) + direction;
+			std::cout << " X: " << resultant.getX() << " Y: " << resultant.getY() << " Z: " << resultant.getZ();
+
+			//Ray ray = new Ray(location, targetOnImage, scene);
+			//ray.fire();
+
 		}
 		std::cout << "\n";
 	}
