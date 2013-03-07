@@ -1,24 +1,13 @@
 #include "Ray.hpp"
 
-Ray::Ray(Vector3 location, Vector3 direction, Scene scene)
+Ray::Ray(Vector3 location, Vector3 focus, Scene scene, int longevity)
 {
 
-	this.direction = direction.normalize;
-	this.position = position;
-	this.scene = scene;
-	this.color = color;
-	longevity = 15;
-
-}
-
-Ray::Ray(Vector3 location, Vector3 direction, Scene scene, int longevity)
-{
-
-	this.direction = direction.normalize();
-	this.position = position;
-	this.scene = scene;
-	this.color = color;
-	this.longevity = longevity;
+	this->rotation = focus - location;
+	this->rotation = this->rotation.normalize();;
+	this->location = location;
+	this->scene = scene;
+	this->longevity = longevity;
 
 }
 
@@ -50,10 +39,10 @@ void Ray::fire(){
 			break;
 
 		}
-		color -= Form[closestform].getColor(&position, &direction);
-		Form[closestform].reflect(&position, &direction);
 
-		life--;
+		Ray refl = Form[closestform].reflect(position, direction);
+		color -= Form[closestform].getColor(position, direction);
+		longevity--;
 
 	}
 
