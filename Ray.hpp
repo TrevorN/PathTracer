@@ -1,18 +1,15 @@
 #ifndef C_RAY
-#define C_RAY
-
 #include "Vector3.hpp"
 #include "Scene.hpp"
-
 class Ray{
 
-		Vector3 location, rotation;
+		Vector3 position, direction;
 		int color, longevity;
-		Scene* sceneRef;
+		Scene* scene;
 
 	public:
 		Ray();
-		Ray(Vector3, Vector3, Scene* sceneRef, int);
+		Ray(Vector3, Vector3, Scene*, int);
 		int fire();
 		
 };

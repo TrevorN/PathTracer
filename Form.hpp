@@ -8,10 +8,10 @@ class Form{
 		int colour;	
 
 	public:
-		Form();
-		int collideWith(Vector3, Vector3);
-		Vector3 reflect(Vector3, Vector3);
-		int getColour(Vector3, Vector3);
+
+		virtual int collideWith(Vector3, Vector3) = 0;
+		virtual Vector3 reflect(Vector3, Vector3) = 0;
+		virtual int getColour(Vector3, Vector3)= 0;
 
 };
 
