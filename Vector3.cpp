@@ -83,3 +83,8 @@ Vector3 Vector3::projectOnto(Vector3 other)
 	return other.normalize() * dotProduct(other.normalize());
 
 }
+
+double Vector3::angleBetween(Vector3 other)
+{
+	return acos(dotProduct(other) / (getMagnitude() * other.getMagnitude()));
+}

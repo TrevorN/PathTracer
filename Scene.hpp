@@ -7,12 +7,12 @@ class Scene
 {
 
 		int amountofForms;
-		int ambience;
+		Color ambience;
 		Form* conglomerateForms;
 	public:
 		Scene();
 		int formQuantity();
-		int getAmbience();
+		Color getAmbience();
 		Form* getForms();
 };
 

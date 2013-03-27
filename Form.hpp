@@ -2,16 +2,19 @@
 #define C_FORM
 
 #include "Vector3.hpp"
+#include "Ray.hpp"
 
-class Form{
+class Form
+{
 
-		int colour;	
+		Material material;
+		Vector3 location, rotation, up;
 
 	public:
 
-		virtual int collideWith(Vector3, Vector3) = 0;
-		virtual Vector3 reflect(Vector3, Vector3) = 0;
-		virtual int getColour(Vector3, Vector3)= 0;
+		virtual int getDistance(Ray) = 0;
+		virtual Ray collideWith(Ray) = 0;
+		virtual Color getColor(Ray) = 0;
 
 };
 

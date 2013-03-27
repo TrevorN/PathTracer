@@ -17,7 +17,7 @@ Form* Scene::getForms(){
 
 }
 
-int Scene::getAmbience(){
+Color Scene::getAmbience(){
 
 	return ambience;
 
