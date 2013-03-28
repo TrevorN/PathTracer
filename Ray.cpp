@@ -13,6 +13,7 @@ Ray::Ray(Vector3 location, Vector3 focus, int longevity)
 
 Color Ray::fire(Scene* scene){
 
+	Colour rayColour = Colour(0);
 	while(longevity > 0){
 
 		int corpusSize = scene->formQuantity();
@@ -35,16 +36,18 @@ Color Ray::fire(Scene* scene){
 
 		if(closestForm == -1)
 		{
-			color = scene->getAmbience();
+			rayColour = scene->getAmbience();
 			break;
 		}
 
 		color -= formList[closestForm].getColor(*this);
 		formList[closestForm].collideWith(*this);
+		rayColour -= formList[closestForm].getColour(position, direction);
 		longevity--;
 	}
 
-	return color;
+	rayColour.normalize();
+	return rayColour;
 
 }
 

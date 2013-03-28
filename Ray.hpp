@@ -2,6 +2,7 @@
 #define C_RAY
 #include "Vector3.hpp"
 #include "Scene.hpp"
+#include "Colour.hpp"
 class Ray{
 
 		Vector3 position, direction;
@@ -11,7 +12,7 @@ class Ray{
 	public:
 		Ray();
 		Ray(Vector3, Vector3, int);
-		Color fire(Scene*);
+		Colour fire(Scene*);
 		Vector3 getPosition();
 		Vector3 getDirection();
 		int getLongeveity();
