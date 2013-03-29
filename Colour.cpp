@@ -1,5 +1,14 @@
 #include "Colour.hpp"
 
+Colour::Colour()
+{
+
+	this->r = -1;
+	this->g = -1;
+	this->b = -1;
+
+}
+
 Colour::Colour(int r, int g, int b)
 {
 

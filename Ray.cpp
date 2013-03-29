@@ -2,11 +2,14 @@
 #include "Form.hpp"
 #include "Vector3.hpp"
 
-Ray::Ray(Vector3 location, Vector3 focus, Scene* scene, int longevity)
+Ray::Ray(Vector3 location, Vector3 direction, Scene* scene, int longevity)
 {
 
+	/*
 	this->direction = focus - location;
-	this->direction = this->direction.normalize();;
+	this->direction = this->direction.normalize();
+	*/
+	this->direction = direction.normalize();
 	this->position = location;
 	this->scene = scene;
 	this->longevity = longevity;

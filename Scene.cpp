@@ -3,6 +3,16 @@
 Scene::Scene()
 {
 
+	amountofForms = 0;
+
+}
+
+Scene::Scene(Colour ambience)
+{
+
+	amountofForms = 0;
+	this->ambience = ambience;
+
 }
 
 int Scene::formQuantity(){
@@ -17,7 +27,7 @@ Form* Scene::getForms(){
 
 }
 
-int Scene::getAmbience(){
+Colour Scene::getAmbience(){
 
 	return ambience;
 

@@ -2,17 +2,19 @@
 #define C_SCENE
 
 #include "Form.hpp"
+#include "Colour.hpp"
 
 class Scene
 {
 
 		int amountofForms;
-		int ambience;
+		Colour ambience;
 		Form* conglomerateForms;
 	public:
 		Scene();
+		Scene(Colour);
 		int formQuantity();
-		int getAmbience();
+		Colour getAmbience();
 		Form* getForms();
 };
 
