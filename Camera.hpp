@@ -3,6 +3,7 @@
 
 #include "Vector3.hpp"
 #include "Scene.hpp"
+#include "Colour.hpp"
 
 class Camera
 {
@@ -11,13 +12,13 @@ class Camera
 		double focalLen, topWidth;
 		int resX, resY, aaDepth, samplesTaken, longevity;
 		bool AA;
-		char * image;
+		Colour* image;
 
 	public:
 		Camera(Scene, Vector3, Vector3, Vector3, double, double, int, int, int);
 		Camera(Scene, Vector3, Vector3, Vector3, double, double, int, int, int, int);
 		~Camera();
 		void takeSample();
-		char * getImage();
+		Colour* getImage();
 };
 #endif

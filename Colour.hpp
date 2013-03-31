@@ -8,6 +8,7 @@ class Colour{
 		int b;
 		
 	public:
+		Colour();
 		Colour(int, int, int);
 		Colour(int);
 		Colour& operator+=(Colour);
