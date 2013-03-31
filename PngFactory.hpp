@@ -8,7 +8,7 @@
 class PngFactory
 {
 
-		void write_row_callback(png_structp, png_uint_32, int);
+		static void write_row_callback(png_structp, png_uint_32, int);
 	public:
 		PngFactory();
 		int makePng(Colour*, int, int);

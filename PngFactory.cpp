@@ -1,25 +1,55 @@
 #include "PngFactory.hpp"
-#include <stdio.h>
-using namespace std;
-PngFactory::PngFactory(){
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+PngFactory::PngFactory()
+{
 
 }
 
-int PngFactory::makePng(Colour* image, int resX, int resY){
+int PngFactory::makePng(Colour* image, int resX, int resY)
+{
 
 	FILE* rendering;
+	int bytes_per_pixel = 4;
+	png_uint_32 height, width;
+	height = resY;
+	width = resX;
+	int compositionSize = height*width;
+	png_byte *colors = (png_byte*) malloc(bytes_per_pixel*compositionSize*sizeof(*colors));
+	png_byte rgbDepth = 8;
+
+	for(int i = 0; i < compositionSize; i++){
+
+		int hue = image[i].getRGB();
+		int offset = i*bytes_per_pixel;
+		colors[offset] = (hue>>16)&0xFF;
+		colors[offset+1] = (hue>>8)&0xFF;
+		colors[offset+2] = (hue)&0xFF;
+		colors[offset+3] = 255;
+
+	}
+
+	png_byte **row_pointers = (png_byte**) malloc(height*sizeof(*row_pointers));
+
+	for(int i = 0; i < height; i++){
+
+		row_pointers[i] = colors+i*width;
+
+	}
+
 	rendering = fopen("test.png", "wb");
 
-	if(rendering < 0){
+	if(!rendering){
 
 		return(-1);
 
 	}
 
-	png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, (png_voidp) 0, 0, 0);
+	png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 
 	if(!png_ptr){
-
+		
 		return(-1);
 
 	}
@@ -30,10 +60,12 @@ int PngFactory::makePng(Colour* image, int resX, int resY){
 
 		png_destroy_write_struct(&png_ptr, (png_infopp)NULL);
 		return(-1);
+
 	}
 
 	if(setjmp(png_jmpbuf(png_ptr))){
 		png_destroy_write_struct(&png_ptr, &info_ptr);
+		fclose(rendering);
 		return(-1);
 	}
 
@@ -43,61 +75,47 @@ int PngFactory::makePng(Colour* image, int resX, int resY){
 
 	png_set_compression_level(png_ptr, Z_DEFAULT_COMPRESSION);
 
-	png_set_IDHR(png_ptr, info_ptr, resX, resY, 8, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
-
-	palette = (png_colorp) png_malloc(png_ptr, PNG_MAX_PALETTE_LENGTH* png_sizeof(png_color));
-	png_set_PLTE(png_ptr, info_ptr, palette, PNG_MAX_PALETTE_LENGTH);
+	png_set_IHDR(png_ptr, info_ptr, resX, resY, rgbDepth, PNG_COLOR_TYPE_RGB_ALPHA, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 
 
-	text_ptr[0].key = "Title";
-	text_ptr[0].text = "$WAG";
+
+	png_text text_ptr[3];
+	text_ptr[0].key = (char*) "Title";
+	text_ptr[0].text = (char*) "$WAG";
 	text_ptr[0].compression = PNG_TEXT_COMPRESSION_NONE;
-	text_ptr[1].key = "Author";
-	text_ptr[1].text = "Adam Schmidt & Trevor Nielsen";
+	text_ptr[1].key = (char*) "Author";
+	text_ptr[1].text = (char*) "Adam Schmidt & Trevor Nielsen";
 	text_ptr[1].compression = PNG_TEXT_COMPRESSION_NONE;
-	text_ptr[2].key = "Description";
-	text_ptr[2].text = "this";
+	text_ptr[2].key = (char*) "Description";
+	text_ptr[2].text = (char*) "this";
 	text_ptr[2].compression = PNG_TEXT_COMPRESSION_zTXt;
 	png_set_text(png_ptr, info_ptr, text_ptr, 3);
 
 	png_write_info(png_ptr, info_ptr);
 
-	png_color_8p sig_bit;
-	png_get_sBIT(png_ptr, info_ptr, &sig_bit);
-	png_set_shift(png_ptr, sig_bit);
-	sig_bit.red = 8;
-	sig_bit.green = 8;
-	sig_bit.blue = 8;
+	png_color_8p sig_bit = (png_color_8p) malloc(sizeof(png_color_8));
+	sig_bit->red = rgbDepth;
+	sig_bit->green = rgbDepth;
+	sig_bit->blue = rgbDepth;
+	sig_bit->alpha = rgbDepth;
+	
 	png_set_sBIT(png_ptr, info_ptr, sig_bit);
 	png_set_shift(png_ptr, sig_bit);
-	png_set_packing(png_ptr);
-	png_set_filler(png_ptr, 0, PNG_FILLER_BEFORE);
-	png_set_bgr(png_ptr);
 
-	png_set_swap(png_ptr);
-
-	png_set_packswap(png_ptr);
-
-	png_set_shift(png_ptr, &sig_bit);
-
-	int bytes_per_pixel = 4;
-	png_uint_32 k, height, width;
-	height = resY;
-	width = resX;
-	png_byte image[height][width*bytes_per_pixel];
-	png_bytep row_pointers[height];
 	
-	if(height > PNG_UINT_32_MAX/png_sizeof(png_bytep))
-		png_error(png_ptr, "too big image"):
+	if(height > PNG_UINT_32_MAX/png_sizeof(png_bytep)){
 
-	for(k = 0; k < height; k++)
-		row_pointers[k] = image + k*width*bytes_per_pixel;
+		png_error(png_ptr, "too big image");
+
+	}
 
 	png_write_image(png_ptr, row_pointers);
 
-	png_free(png_ptr, palette);
-	palette=NULL;
+	png_write_end(png_ptr, NULL);
+	png_destroy_write_struct(&png_ptr, &info_ptr);
 
+	free(colors);
+	free(row_pointers);
 
 
 
@@ -109,6 +127,6 @@ int PngFactory::makePng(Colour* image, int resX, int resY){
 void PngFactory::write_row_callback(png_structp png_ptr, png_uint_32 row, int pass)
 {
 
-	std::cout << "swag"
+	std::cout << "swag" << row << "\n";
 
 }
