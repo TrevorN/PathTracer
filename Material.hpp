@@ -1,12 +1,12 @@
 #ifndef C_MATERIAL
 #define C_MATERIAL
 
-#include "Color.hpp"
-#include "Ray.hpp"
+#include "Colour.hpp"
+#include "Vector3.hpp"
 
 class Material
 {
-		Color color;
+		Colour color;
 	public:
 		virtual Vector3 bounce(Vector3, Vector3);
 		virtual Colour getColour(Vector3, Vector3);

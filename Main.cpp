@@ -4,14 +4,12 @@
 #include "PngFactory.hpp"
 #include <iostream>
 
-using namespace std;
-
 int main()
 {
-	int resX = 500;
-	int resY = 500;
-	double focalLen = 500;
-	double topWidth = 500;
+	int resX = 1024;
+	int resY = 1024;
+	double focalLen = 1024;
+	double topWidth = 1024;
 	Camera cam = Camera(Scene(Colour(255,0,0)), Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5);
 	cam.takeSample();
 

@@ -3,10 +3,12 @@
 #include "Vector3.hpp"
 #include "Scene.hpp"
 #include "Colour.hpp"
+
+class Scene;
+
 class Ray{
 
 		Vector3 position, direction;
-		Color color;
 		int longevity;
 
 	public:

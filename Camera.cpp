@@ -59,11 +59,11 @@ void Camera::takeSample()
 			Vector3 yVec = yDir * ((i * pixWidth) - halfHeight);
 			Vector3 xVec = xDir * ((j * pixWidth) - halfWidth);
 			Vector3 rayVec = rootDir + xVec + yVec;
-			std::cout << "X: " << rayVec.getX() << " Y: " << rayVec.getY() << " Z: " << rayVec.getZ() << "\t";
-			Ray beam = Ray(location, rayVec, &environment, longevity);
-			image[i*resX+j] = beam.fire();
+//			std::cout << "X: " << rayVec.getX() << " Y: " << rayVec.getY() << " Z: " << rayVec.getZ() << "\t";
+			Ray beam = Ray(location, rayVec, longevity);
+			image[i*resX+j] = beam.fire(&environment);
 		}
-		std::cout << "\n";
+//		std::cout << "\n";
 	}
 }
 
