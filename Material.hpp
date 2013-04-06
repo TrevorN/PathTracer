@@ -6,7 +6,7 @@
 
 class Material
 {
-		Color color;
+		Colour colour;
 	public:
 		virtual Vector3 bounce(Vector3, Vector3);
 		virtual Colour getColour(Vector3, Vector3);

@@ -4,17 +4,26 @@
 
 const double pi = 4.0 * atan(1.0);
 
-Diffuse::Diffuse(double hardness)
+Diffuse::Diffuse(Colour colour, double hardness)
 {
+	this->colour = colour;
 	//lol nobody cares about hardness.
 }
 
-Ray Diffuse::bounce(Vector3 rayIn, Vector3 surfaceNormal)
-{
-	double phi = rand() * 2 * pi;
-	double theta = asin(rand);
+Vector3 Diffuse::bounce(Vector3 rayIn, Vector3 surfaceNormal)
+	double x = surfaceNormal.getX();
+	double y = surfaceNormal.getY();
+	double z = surfaceNormal.getZ();
 
-	double x = r * cos(theta) * cos(phi);
-	double y = r * cos(theta) * sin(phi);
-	double z = r * sin(theta);
+	double theta = asin(z);
+	double phi = acos(x / cos(theta));
+
+	theta += pi * rand() - pi / 2;
+	phi += pi * rand() - pi / 2;
+
+	x = cos(theta) * cos(phi);
+	y = cos(theta) * sin(phi):
+	z = sin(theta);
+
+	return Vector3(x, y, z).normalize();
 }
