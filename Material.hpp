@@ -1,7 +1,7 @@
 #ifndef C_MATERIAL
 #define C_MATERIAL
 
-#include "Color.hpp"
+#include "Colour.hpp"
 #include "Ray.hpp"
 
 class Material

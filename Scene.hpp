@@ -10,13 +10,13 @@ class Scene
 		int amountOfForms;
 		int arraySize;
 		Colour ambience;
-		Form* conglomerateForms;
+		Form** conglomerateForms;
 	public:
 		Scene(Colour);
 		int formQuantity();
 		Colour getAmbience();
-		void addForm(Form);
-		Form* getForms();
+		void addForm(Form*);
+		Form* getForm(int);
 		~Scene();
 };
 
