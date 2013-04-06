@@ -5,8 +5,11 @@
 Ray::Ray(Vector3 location, Vector3 focus, int longevity)
 {
 
+	/*
 	this->direction = focus - location;
-	this->direction = this->direction.normalize();;
+	this->direction = this->direction.normalize();
+	*/
+	this->direction = direction.normalize();
 	this->position = location;
 	this->longevity = longevity;
 }

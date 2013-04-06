@@ -2,6 +2,7 @@
 #define C_SCENE
 
 #include "Form.hpp"
+#include "Colour.hpp"
 
 class Scene
 {

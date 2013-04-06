@@ -5,6 +5,7 @@
 
 Camera::Camera(Scene scene, Vector3 location, Vector3 focus, Vector3 up, double focalLen, double topWidth, int resX, int resY, int longevity)
 {
+	environment = scene;
 	this->location = location;
 	this->rotation = focus - location;
 	this->rotation = this->rotation.normalize();
@@ -15,11 +16,12 @@ Camera::Camera(Scene scene, Vector3 location, Vector3 focus, Vector3 up, double 
 	this->longevity = longevity;
 	this->up = up;
 	AA = false;
-	image = new char[resX * 3 * resY];
+	image = new Colour[resX * resY];
 }
 
 Camera::Camera(Scene scene, Vector3 location, Vector3 focus, Vector3 up, double focalLen, double topWidth, int resX, int resY, int longevity, int aaDepth)
 {
+	environment = scene;
 	this->location = location;
 	this->rotation = focus - location;
 	this->rotation = this->rotation.normalize();
@@ -31,7 +33,7 @@ Camera::Camera(Scene scene, Vector3 location, Vector3 focus, Vector3 up, double 
 	this->longevity = longevity;
 	this->up = up;
 	AA = true;
-	image = new char[resX * 3 * resY];
+	image = new Colour[resX * resY];
 }
 
 Camera::~Camera()
@@ -47,15 +49,27 @@ void Camera::takeSample()
 	Vector3 xDir = rootDir.crossProduct(up).normalize();
 	Vector3 yDir = rootDir.crossProduct(xDir).normalize();
 
+	int halfWidth = (resX*pixWidth/2.0);
+	int halfHeight = (resY*pixWidth/2.0);
+
 	for(int i = 0; i < resY; i++)
 	{
 		for(int j = 0; j < resX; j++)
 		{
-			Vector3 vec1 = xDir * (-(resX * pixWidth * .5) + ((j * pixWidth * resX)/(resX -1)));
-			Vector3 vec2 = yDir * (-(resY * pixWidth * .5) + ((i * pixWidth * resY)/(resY -1)));
-			Vector3 rayVec = rootDir + vec1 + vec2;
+			Vector3 yVec = yDir * ((i * pixWidth) - halfHeight);
+			Vector3 xVec = xDir * ((j * pixWidth) - halfWidth);
+			Vector3 rayVec = rootDir + xVec + yVec;
 			std::cout << "X: " << rayVec.getX() << " Y: " << rayVec.getY() << " Z: " << rayVec.getZ() << "\t";
+			Ray beam = Ray(location, rayVec, &environment, longevity);
+			image[i*resX+j] = beam.fire();
 		}
 		std::cout << "\n";
 	}
+}
+
+Colour* Camera::getImage()
+{
+
+	return image;
+
 }

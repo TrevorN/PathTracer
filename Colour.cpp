@@ -1,5 +1,14 @@
 #include "Colour.hpp"
 
+Colour::Colour()
+{
+
+	this->r = -1;
+	this->g = -1;
+	this->b = -1;
+
+}
+
 Colour::Colour(int r, int g, int b)
 {
 
@@ -76,7 +85,7 @@ int Colour::getBlue(){
 
 int Colour::getRGB(){
 
-	return (r&0xFF)<<16+(g&0xFF)<<8+(b&0xFF);
+	return ((r&0xFF)<<16)+((g&0xFF)<<8)+(b&0xFF);
 
 }
 
