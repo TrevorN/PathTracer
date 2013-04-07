@@ -10,14 +10,15 @@ class Ray;
 class Form
 {
 
-		Material material;
+	protected:
+		Material* material;
 		Vector3 location, rotation, up;
 
 	public:
 
-		virtual int getDistance(Ray) = 0;
-		virtual Ray collideWith(Ray) = 0;
-		virtual Colour getColour(Ray) = 0;
+		virtual int getDistance(Ray*) = 0;
+		virtual void collideWith(Ray*) = 0;
+		virtual Colour getColour(Ray*) = 0;
 
 };
 

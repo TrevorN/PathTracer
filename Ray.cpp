@@ -1,8 +1,9 @@
 #include "Ray.hpp"
 #include "Form.hpp"
 #include <cfloat>
+#include <iostream>
 
-Ray::Ray(Vector3 location, Vector3 focus, int longevity)
+Ray::Ray(Vector3 location, Vector3 direction, int longevity)
 {
 
 	/*
@@ -22,12 +23,12 @@ Colour Ray::fire(Scene* scene){
 		int corpusSize = scene->formQuantity();
 		double dist = DBL_MAX;;
 		int closestForm = -1;
-		Form* formList = scene->getForms();
+		Form** formList = scene->getForms();
 		for(int i = 0; i < corpusSize; i++)
 		{
 
 			double tmpdist;
-			if((tmpdist = formList[i].getDistance(*this))!=-1)
+			if((tmpdist = formList[i]->getDistance(this))!=-1)
 			{
 				if(tmpdist < dist)
 				{
@@ -41,12 +42,13 @@ Colour Ray::fire(Scene* scene){
 
 		if(closestForm == -1)
 		{
-			rayColour = scene->getAmbience();
+			rayColour -= scene->getAmbience();
 			break;
 		}
 
-		formList[closestForm].collideWith(*this);
-		rayColour -= formList[closestForm].getColour(*this);
+
+		formList[closestForm]->collideWith(this);
+		rayColour -= formList[closestForm]->getColour(this);
 		longevity--;
 	}
 
@@ -55,9 +57,19 @@ Colour Ray::fire(Scene* scene){
 
 }
 
+void Ray::setPosition(Vector3 position)
+{
+	this->position = position;
+}
+
 Vector3 Ray::getPosition()
 {
 	return position;
+}
+
+void Ray::setDirection(Vector3 direction)
+{
+	this->direction = direction;
 }
 
 Vector3 Ray::getDirection()

@@ -3,9 +3,9 @@
 Colour::Colour()
 {
 
-	this->r = -1;
-	this->g = -1;
-	this->b = -1;
+	this->r = 0;
+	this->g = 0;
+	this->b = 0;
 
 }
 
@@ -30,27 +30,36 @@ Colour::Colour(int rgb)
 Colour Colour::operator+(Colour other)
 {
 
-	r=r+other.getRed();
-	g=g+other.getGreen();
-	b=b+other.getBlue();
+	Colour result = *this;
+	result += other;
+	return result;
 
 }
 
 Colour Colour::operator-(Colour other)
 {
 
-	r=r-other.getRed();
-	g=g-other.getGreen();
-	b=b-other.getBlue();
+	Colour result = *this;
+	result -= other;
+	return result;
+
+}
+
+Colour Colour::operator/(int other)
+{
+
+	Colour result = *this;
+	result /= other;
+	return result;
 
 }
 
 Colour& Colour::operator+=(Colour other)
 {
 
-	this->r+=other.getRed();
-	this->g+=other.getGreen();
-	this->b+=other.getBlue();
+	this->r += other.getRed();
+	this->g += other.getGreen();
+	this->b += other.getBlue();
 	return *this;
 
 }
@@ -58,9 +67,19 @@ Colour& Colour::operator+=(Colour other)
 Colour& Colour::operator-=(Colour other)
 {
 
-	this->r-=other.getRed();
-	this->g-=other.getGreen();
-	this->b-=other.getBlue();
+	this->r -= other.getRed();
+	this->g -= other.getGreen();
+	this->b -= other.getBlue();
+	return *this;
+
+}
+
+Colour& Colour::operator/=(int other)
+{
+
+	this->r /= other;
+	this->g /= other;
+	this->b /= other;
 	return *this;
 
 }

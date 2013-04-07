@@ -2,20 +2,18 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+
 PngFactory::PngFactory()
 {
 
 }
 
-int PngFactory::makePng(Colour* image, int resX, int resY)
+int PngFactory::makePng(Colour* image, int resX, int resY, std::string filename)
 {
 
 	FILE* rendering;
 	int bytes_per_pixel = 4;
-	png_uint_32 height, width;
-	height = resY;
-	width = resX;
-	int compositionSize = height*width;
+	int compositionSize = resX*resY;
 	png_byte *colors = (png_byte*) malloc(bytes_per_pixel*compositionSize*sizeof(*colors));
 	png_byte rgbDepth = 8;
 
@@ -30,15 +28,15 @@ int PngFactory::makePng(Colour* image, int resX, int resY)
 
 	}
 
-	png_byte **row_pointers = (png_byte**) malloc(height*sizeof(*row_pointers));
+	png_byte **row_pointers = (png_byte**) malloc(resY*sizeof(*row_pointers));
 
-	for(int i = 0; i < height; i++){
+	for(int i = 0; i < resY; i++){
 
-		row_pointers[i] = colors+i*width;
+		row_pointers[i] = colors+i*resX*bytes_per_pixel;
 
 	}
 
-	rendering = fopen("test.png", "wb");
+	rendering = fopen(filename.c_str(), "wb");
 
 	if(!rendering){
 
@@ -70,14 +68,9 @@ int PngFactory::makePng(Colour* image, int resX, int resY)
 	}
 
 	png_init_io(png_ptr, rendering);
-
 	png_set_write_status_fn(png_ptr, write_row_callback);
-
 	png_set_compression_level(png_ptr, Z_DEFAULT_COMPRESSION);
-
 	png_set_IHDR(png_ptr, info_ptr, resX, resY, rgbDepth, PNG_COLOR_TYPE_RGB_ALPHA, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
-
-
 
 	png_text text_ptr[3];
 	text_ptr[0].key = (char*) "Title";
@@ -93,6 +86,7 @@ int PngFactory::makePng(Colour* image, int resX, int resY)
 
 	png_write_info(png_ptr, info_ptr);
 
+	
 	png_color_8p sig_bit = (png_color_8p) malloc(sizeof(png_color_8));
 	sig_bit->red = rgbDepth;
 	sig_bit->green = rgbDepth;
@@ -103,7 +97,7 @@ int PngFactory::makePng(Colour* image, int resX, int resY)
 	png_set_shift(png_ptr, sig_bit);
 
 	
-	if(height > PNG_UINT_32_MAX/png_sizeof(png_bytep)){
+	if(resY > PNG_UINT_32_MAX/png_sizeof(png_bytep)){
 
 		png_error(png_ptr, "too big image");
 

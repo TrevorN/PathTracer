@@ -1,8 +1,10 @@
 #include "Vector3.hpp"
 #include "Sphere.hpp"
+#include <iostream>
+#include <cstdlib>
 #include <cmath>
 
-Sphere::Sphere(Vector3 location, Vector3 rotation, Vector3 up, double radius, Material material)
+Sphere::Sphere(Vector3 location, Vector3 rotation, Vector3 up, double radius, Material* material)
 {
 	this->location = location;
 	this->rotation = rotation.normalize();
@@ -11,39 +13,50 @@ Sphere::Sphere(Vector3 location, Vector3 rotation, Vector3 up, double radius, Ma
 	this->material = material;
 }
 
-int Sphere::getDistance(Ray ray)
+int Sphere::getDistance(Ray* ray)
 {
-	Vector3 rayDirection = ray.getDirection();
-	Vector3 rayPosition = ray.getPosition();
+	int fMag;
+	Vector3 rayDirection = ray->getDirection();
+	Vector3 rayPosition = ray->getPosition();
 
-	double theta = rotation.angleBetween(rayDirection);
-	double x = location - rayPosition;
-	double y = x * sin(theta);
-	if(y  > radius)
+	Vector3 a = location - rayPosition;
+	Vector3 b = a.projectOnto(rayDirection);
+	Vector3 c = a-b;
+	int cMag = c.getMagnitude();
+	if(cMag > radius){
 		return -1;
-	return (x * cos(theta)) - sqrt(y * y * radius * radius);
+	}
+
+	fMag = b.getMagnitude() - sqrt((radius*radius)-(cMag * cMag));
+	b = b - (b * sqrt((radius*radius)-(cMag*cMag)));
+	return b.getMagnitude();
 }
 
-Ray Sphere::collideWith(Ray ray)
+void Sphere::collideWith(Ray* ray)
 {
 	double distance = getDistance(ray);
 	if(distance == -1)
 	{
-		cout << "Something went horribly, horribly wrong. Goodbye world. \n"
+		std::cout << "Something went horribly, horribly wrong. Goodbye world. \n";
 		exit(EXIT_FAILURE);
 	}
 
-	Vector3 rayDirection = ray.getDirection();
-	Vector3 rayPosition = ray.getPosition();
-	Vector3 newPosition = rayPosition + (distance * rayDirection);
+	Vector3 rayDirection = ray->getDirection();
+	Vector3 rayPosition = ray->getPosition();
+	Vector3 newPosition = rayPosition + (rayDirection * distance);
 
 	Vector3 surfaceNormal = newPosition - location;
-	Vector3 newDirection = material.bounce(rayDirection, surfaceNormal);
+	surfaceNormal = surfaceNormal.normalize();
+	Vector3 newDirection = material->bounce(rayDirection, surfaceNormal);
 
-	return Ray(newPosition, newPosition + newDirection, ray.getLongevity() - 1);
+	ray->setPosition(newPosition);
+	ray->setDirection(newDirection);
+
 }
 
-Color Sphere::getColor(Ray ray)
+Colour Sphere::getColour(Ray* ray)
+{
 
-	return material.getColor(ray);
+	return material->getColour(ray->getDirection(), ray->getPosition());
+
 }

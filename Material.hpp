@@ -6,10 +6,11 @@
 
 class Material
 {
-		Colour color;
+	protected:
+		Colour colour;
 	public:
-		virtual Vector3 bounce(Vector3, Vector3);
-		virtual Colour getColour(Vector3, Vector3);
+		virtual Vector3 bounce(Vector3, Vector3) = 0;
+		virtual Colour getColour(Vector3, Vector3) = 0;
 };
 
 #endif
