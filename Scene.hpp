@@ -9,7 +9,8 @@ class Form;
 class Scene
 {
 
-		int amountofForms;
+		int amountOfForms;
+		int arraySize;
 		Colour ambience;
 		Form** conglomerateForms;
 	public:
@@ -19,7 +20,7 @@ class Scene
 		int formQuantity();
 		Colour getAmbience();
 		void addForm(Form*);
-		Form** getForms();
+		Form* getForm(int);
 };
 
 #endif

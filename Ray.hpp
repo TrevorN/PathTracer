@@ -1,5 +1,6 @@
 #ifndef C_RAY
 #define C_RAY
+
 #include "Vector3.hpp"
 #include "Scene.hpp"
 #include "Colour.hpp"
@@ -9,6 +10,7 @@ class Scene;
 class Ray{
 
 		Vector3 position, direction;
+		Colour colour;
 		int longevity;
 
 	public:

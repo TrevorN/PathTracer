@@ -1,11 +1,8 @@
 #include "Scene.hpp"
-#include <cstdlib>
-#include <cstring>
-
 Scene::Scene()
 {
 
-	amountofForms = 0;
+	amountOfForms = 0;
 	conglomerateForms = 0;
 
 }
@@ -13,48 +10,49 @@ Scene::Scene()
 Scene::Scene(Colour ambience)
 {
 
-	amountofForms = 0;
-	conglomerateForms = 0;
 	this->ambience = ambience;
-
-}
-
-Scene::~Scene()
-{
-
-	delete conglomerateForms;
-
+	amountOfForms = 0;
+	arraySize = 25;
+	conglomerateForms = new Form*[arraySize];
 }
 
 int Scene::formQuantity(){
 
-	return amountofForms;
+	return amountOfForms;
 
 }
 
-void Scene::addForm(Form* f){
-
-	Form** tmpForms = new Form*[amountofForms+1];
-	for(int i = 0; i < amountofForms; i++){
-
-		tmpForms[i] = conglomerateForms[i];
-
-	}
-	delete conglomerateForms;
-	conglomerateForms = tmpForms;
-	conglomerateForms[amountofForms++] = f;
-
+Form* Scene::getForm(int index)
+{
+	return conglomerateForms[index];
 }
 
-Form** Scene::getForms(){
-
-	return conglomerateForms;
-
-}
-
-
-Colour Scene::getAmbience(){
-
+Colour Scene::getAmbience()
+{
 	return ambience;
+}
 
+void Scene::addForm(Form* newbie)
+{
+	if(amountOfForms + 1 > arraySize)
+	{
+		//Make the array bigger
+		Form** tempArr = new Form*[arraySize * 2];
+		for(int i = 0; i < amountOfForms; i++){
+
+			tempArr[i] = conglomerateForms[i];
+
+		}
+		delete conglomerateForms;
+		conglomerateForms = tempArr;
+		arraySize *= 2;
+		//Array resized!
+	}
+
+	conglomerateForms[amountOfForms++] = newbie;
+}
+
+Scene::~Scene()
+{
+	delete conglomerateForms;
 }
