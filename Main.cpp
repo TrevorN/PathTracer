@@ -9,13 +9,13 @@
 
 int main()
 {
-	int resX = 1024;
-	int resY = 1024;
-	double focalLen = 1024;
-	double topWidth = 1024;
-	Scene* theScene = new Scene(Colour(-128, -100, -130));
-	theScene->addForm(new Sphere(Vector3(0, 1024, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 256, new Mirror(Colour(0, -128, -128))));
-
+	int resX = 640;
+	int resY = 480;
+	double focalLen = 5;
+	double topWidth = 5;
+	Scene* theScene = new Scene(Colour(-240, -240, -240));
+	Sphere* groundSphere = new Sphere(Vector3(0, 20, -510), Vector3(0, 1, 0), Vector3(0, 0, 1), 500, new Diffuse(Colour(50, 50, 50)));
+	theScene->addForm(groundSphere);
 
 	/* trip
 	theScene->addForm(new Sphere(Vector3(512, 1536, 512), Vector3(0, 1, 0), Vector3(0, 0, 1), 128, new Mirror(Colour(32, 64, 32))));
@@ -24,8 +24,9 @@ int main()
 	theScene->addForm(new Sphere(Vector3(0, 54, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 2056, new Mirror(Colour(-120, -28, -158))));
 	*/
 
-	Sphere* GroundSphere = new Sphere(Vector3(50, 200, -50), Vector3(0, 0, 0), Vector3(0, 0, 0), 50, new Diffuse(Colour(110, 28, 68), 0));
-	theScene->addForm(GroundSphere);
+	Sphere* colorSphere = new Sphere(Vector3(0, 20, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 5, new Diffuse(Colour(0, 255, 255)));
+
+	theScene->addForm(colorSphere);
 
 	Camera cam = Camera(theScene, Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5);
 

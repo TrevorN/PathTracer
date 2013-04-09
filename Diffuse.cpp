@@ -6,12 +6,9 @@
 
 const double pi = 4.0 * atan(1.0);
 
-Diffuse::Diffuse(Colour colour, double hardness)
+Diffuse::Diffuse(Colour colour)
 {
 	this->colour = colour;
-	srand((unsigned)time(0));
-	//lol nobody cares about hardness.
-	(int)hardness>>(int)hardness;
 }
 
 Vector3 Diffuse::bounce(Vector3 rayIn, Vector3 surfaceNormal)
