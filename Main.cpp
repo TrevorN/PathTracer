@@ -13,7 +13,7 @@ int main()
 	int resY = 480;
 	double focalLen = 5;
 	double topWidth = 5;
-	Scene* theScene = new Scene(Colour(-240, -240, -240));
+	Scene* theScene = new Scene(Colour(-255, -255, -255));
 	Sphere* groundSphere = new Sphere(Vector3(0, 20, -510), Vector3(0, 1, 0), Vector3(0, 0, 1), 500, new Diffuse(Colour(50, 50, 50)));
 	theScene->addForm(groundSphere);
 
@@ -30,7 +30,11 @@ int main()
 
 	Camera cam = Camera(theScene, Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5);
 
-	cam.takeSample();
+	for(int i = 0; i < 5; i++)
+	{
+		std::cout << "Taking sample " << i << " \n";
+		cam.takeSample();
+	}
 
 	PngFactory establishment = PngFactory();
 	establishment.makePng(cam.getImage(), resX, resY, "test.png");

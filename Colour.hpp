@@ -14,9 +14,11 @@ class Colour{
 		Colour& operator+=(Colour);
 		Colour& operator-=(Colour);
 		Colour& operator/=(int);
+		Colour& operator*=(int);
 		Colour operator+(Colour);
 		Colour operator-(Colour);
 		Colour operator/(int);
+		Colour operator*(int);
 		int getRed();
 		int getGreen();
 		int getBlue();

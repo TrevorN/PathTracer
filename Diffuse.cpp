@@ -20,8 +20,8 @@ Vector3 Diffuse::bounce(Vector3 rayIn, Vector3 surfaceNormal)
 	double theta = asin(z);
 	double phi = acos(x / cos(theta));
 
-	theta += pi * rand() - pi / 2;
-	phi += pi * rand() - pi / 2;
+	theta += pi * cos(rand()) - pi / 2;
+	phi += pi * cos(rand()) - pi / 2;
 
 	x = cos(theta) * cos(phi);
 	y = cos(theta) * sin(phi);
