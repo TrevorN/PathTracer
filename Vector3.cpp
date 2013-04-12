@@ -80,7 +80,7 @@ int Vector3::dotProduct(Vector3 other)
 Vector3 Vector3::projectOnto(Vector3 other)
 {
 
-	return other.normalize() * dotProduct(other.normalize());
+	return other.normalize() * dotProduct(other)/other.getMagnitude();
 
 }
 

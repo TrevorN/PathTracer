@@ -73,6 +73,7 @@ void Camera::takeSample()
 	int halfHeight = (resY*pixWidth/2.0);
 
 	for(int p = 0; p < samplesTaken; p++){
+		std::cout << "sample#" << p << "\n";
 		for(int i = 0; i < resY; i++)
 		{
 			for(int j = 0; j < resX; j++)
