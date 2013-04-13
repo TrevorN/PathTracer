@@ -11,17 +11,17 @@ int main()
 {
 	int resX = 640;
 	int resY = 480;
-	double focalLen = 5;
-	double topWidth = 5;
+	double focalLen = 100;
+	double topWidth = 640;
 	Scene* theScene = new Scene(Colour(-255, -255, -255));
-//	Sphere* groundSphere = new Sphere(Vector3(0, 20, -510), Vector3(0, 1, 0), Vector3(0, 0, 1), 500, new Mirror(Colour(-50, -200, -50)));
-//	theScene->addForm(groundSphere);
+	Sphere* groundSphere = new Sphere(Vector3(0, -500, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 450, new Diffuse(Colour(-255, -255, -255)));
+	theScene->addForm(groundSphere);
 
-	Sphere* colorSphere = new Sphere(Vector3(0, 200, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 50, new Mirror(Colour(255, 0, 255)));
+	Sphere* colorSphere = new Sphere(Vector3(0, 100, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 50, new Diffuse(Colour(55, 55, 55)));
 
 	theScene->addForm(colorSphere);
 
-	Camera cam = Camera(theScene, Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 3, 0, 1);
+	Camera cam = Camera(theScene, Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5, 0, 10);
 
 	cam.takeSample();
 

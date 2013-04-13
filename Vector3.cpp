@@ -24,17 +24,17 @@ Vector3 Vector3::normalize()
 	return Vector3(x / mag, y / mag, z / mag);
 }
 
-double Vector3::getX()
+double Vector3::getX() const
 {
 	return x;
 }
 
-double Vector3::getY()
+double Vector3::getY() const
 {
 	return y;
 }
 
-double Vector3::getZ()
+double Vector3::getZ() const
 {
 	return z;
 }
@@ -60,6 +60,16 @@ Vector3 Vector3::operator*(double scalar)
 	return Vector3(x * scalar, y * scalar, z * scalar);
 }
 
+bool Vector3::operator==(const Vector3 &other) const
+{
+	return (x == other.getX()) && (y == other.getY()) && (z == other.getZ());
+}
+
+bool Vector3::operator!=(const Vector3 &other) const
+{
+	return !(*this == other);
+}
+
 /*
  * Takes the cross product of this vector as A
  * with the other vector (argument) as B.
@@ -80,7 +90,7 @@ int Vector3::dotProduct(Vector3 other)
 Vector3 Vector3::projectOnto(Vector3 other)
 {
 
-	return other.normalize() * dotProduct(other)/other.getMagnitude();
+	return other.normalize() * (dotProduct(other)/other.getMagnitude());
 
 }
 

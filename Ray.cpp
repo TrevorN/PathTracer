@@ -70,7 +70,7 @@ Vector3 Ray::getPosition()
 
 void Ray::setDirection(Vector3 direction)
 {
-	this->direction = direction;
+	this->direction = direction.normalize();
 }
 
 Vector3 Ray::getDirection()
