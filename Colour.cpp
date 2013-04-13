@@ -54,6 +54,13 @@ Colour Colour::operator/(int other)
 
 }
 
+Colour Colour::operator*(int other)
+{
+	Colour result = *this;
+	result *= other;
+	return result;
+}
+
 Colour& Colour::operator+=(Colour other)
 {
 
@@ -82,6 +89,14 @@ Colour& Colour::operator/=(int other)
 	this->b /= other;
 	return *this;
 
+}
+
+Colour& Colour::operator*=(int other)
+{
+	this->r *= other;
+	this->g *= other;
+	this->b *= other;
+	return *this;
 }
 
 int Colour::getRed(){

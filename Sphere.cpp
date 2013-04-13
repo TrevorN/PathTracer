@@ -15,7 +15,6 @@ Sphere::Sphere(Vector3 location, Vector3 rotation, Vector3 up, double radius, Ma
 
 int Sphere::getDistance(Ray* ray)
 {
-	int fMag;
 	Vector3 rayDirection = ray->getDirection();
 	Vector3 rayPosition = ray->getPosition();
 
@@ -30,9 +29,8 @@ int Sphere::getDistance(Ray* ray)
 		return -1;
 	}
 
-	fMag = b.getMagnitude() - sqrt((radius*radius)-(cMag * cMag));
-	b = b - (b * sqrt((radius*radius)-(cMag*cMag)));
-	return b.getMagnitude();
+	int fMag = b.getMagnitude() - sqrt((radius*radius)-(cMag * cMag));;
+	return b.getMagnitude() - fMag;
 }
 
 void Sphere::collideWith(Ray* ray)
