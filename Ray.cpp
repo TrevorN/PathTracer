@@ -18,7 +18,7 @@ Ray::Ray(Vector3 location, Vector3 direction, int longevity)
 Colour Ray::fire(Scene* scene)
 {
 
-	Colour rayColour = Colour(0);
+	Colour rayColour = Colour(0, 0, 0);
 	while(longevity > 0){
 
 		int corpusSize = scene->formQuantity();

@@ -13,21 +13,17 @@ Diffuse::Diffuse(Colour colour)
 
 Vector3 Diffuse::bounce(Vector3 rayIn, Vector3 surfaceNormal)
 {
-	double x = surfaceNormal.getX();
-	double y = surfaceNormal.getY();
-	double z = surfaceNormal.getZ();
+	double theta = 2*pi*rand();
+	double phi = acos(rand());
 
-	double theta = asin(z);
-	double phi = acos(x / cos(theta));
+	double x = sin(theta)*cos(phi);
+	double y = cos(theta)*cos(phi);
+	double z = sin(phi);
 
 	theta += pi * cos(rand()) - pi / 2;
 	phi += pi * cos(rand()) - pi / 2;
 
-	x = cos(theta) * cos(phi);
-	y = cos(theta) * sin(phi);
-	z = sin(theta);
-
-	return Vector3(x, y, z).normalize();
+	return rayOut;
 }
 
 Colour Diffuse::getColour(Vector3 rayIn, Vector3 surfaceNormal)
