@@ -43,7 +43,7 @@ Colour Ray::fire(Scene* scene)
 
 		if(closestForm == -1)
 		{
-			rayColour -= scene->getAmbience();
+			rayColour += scene->getAmbience();
 			break;
 		}
 

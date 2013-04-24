@@ -2,7 +2,6 @@
 #include "Colour.hpp"
 #include <cmath>
 #include <cstdlib>
-#include <ctime>
 
 const double pi = 4.0 * atan(1.0);
 
@@ -13,17 +12,21 @@ Diffuse::Diffuse(Colour colour)
 
 Vector3 Diffuse::bounce(Vector3 rayIn, Vector3 surfaceNormal)
 {
-	double theta = 2*pi*rand();
-	double phi = acos(rand());
+	double x = surfaceNormal.getX();
+	double y = surfaceNormal.getY();
+	double z = surfaceNormal.getZ();
 
-	double x = sin(theta)*cos(phi);
-	double y = cos(theta)*cos(phi);
-	double z = sin(phi);
+	double theta = asin(z);
+	double phi = acos(x / cos(theta));
 
 	theta += pi * cos(rand()) - pi / 2;
 	phi += pi * cos(rand()) - pi / 2;
 
-	return rayOut;
+	x = cos(theta) * cos(phi);
+	y = cos(theta) * sin(phi);
+	z = sin(theta);
+
+	return Vector3(x, y, z).normalize();
 }
 
 Colour Diffuse::getColour(Vector3 rayIn, Vector3 surfaceNormal)
