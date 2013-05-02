@@ -81,7 +81,7 @@ Vector3 Vector3::crossProduct(Vector3 other)
 		(x * other.getY()) - (y * other.getX()));
 }
 
-int Vector3::dotProduct(Vector3 other)
+double Vector3::dotProduct(Vector3 other)
 {
 
 	return (x*other.getX())+(y*other.getY())+(z*other.getZ());
@@ -90,7 +90,7 @@ int Vector3::dotProduct(Vector3 other)
 Vector3 Vector3::projectOnto(Vector3 other)
 {
 
-	return other.normalize() * (dotProduct(other)/other.getMagnitude());
+	return other * (dotProduct(other)/other.dotProduct(other));
 
 }
 

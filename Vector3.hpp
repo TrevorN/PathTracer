@@ -12,7 +12,7 @@ class Vector3{
 		Vector3 normalize();
 		Vector3 crossProduct(Vector3);
 		double angleBetween(Vector3);
-		int dotProduct(Vector3);
+		double dotProduct(Vector3);
 		Vector3 projectOnto(Vector3);
 		Vector3 operator*(double);
 		Vector3 operator+(Vector3);

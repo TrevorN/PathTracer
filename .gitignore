@@ -1,8 +1,6 @@
 *.out
 *.gch
 *.o
-<<<<<<< HEAD
 *.png
-=======
 *.swp
->>>>>>> FirstRender
+.DS_Store

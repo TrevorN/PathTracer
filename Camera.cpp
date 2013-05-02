@@ -14,7 +14,7 @@ Camera::Camera(Scene* scene, Vector3 location, Vector3 focus, Vector3 up, double
 	this->resX = resX;
 	this->resY = resY;
 	this->longevity = longevity;
-	this->up = up;
+	this->up = rotation.crossProduct(up).crossProduct(rotation).normalize();
 	AA = false;
 	image = new Colour[resX * resY];
 	samplesTaken = 0;
@@ -22,20 +22,8 @@ Camera::Camera(Scene* scene, Vector3 location, Vector3 focus, Vector3 up, double
 
 Camera::Camera(Scene* scene, Vector3 location, Vector3 focus, Vector3 up, double focalLen, double topWidth, int resX, int resY, int longevity, int aaDepth)
 {
-	environment = scene;
-	this->location = location;
-	this->rotation = focus - location;
-	this->rotation = this->rotation.normalize();
-	this->focalLen = focalLen;
-	this->topWidth = topWidth;
-	this->resX = resX;
-	this->resY = resY;
-	this->aaDepth = aaDepth;
-	this->longevity = longevity;
-	this->up = up;
-	AA = true;
-	image = new Colour[resX * resY];
-	samplesTaken = 0;
+    Camera(scene, location, focus, up, focalLen, topWidth, resX, resY, longevity);
+    AA = true;
 }
 
 Camera::~Camera()
@@ -63,11 +51,10 @@ void Camera::takeSample()
 		{
 			Vector3 xVec = xDir * ((j * pixWidth) - halfWidth);
 			Vector3 rayVec = rootDir + xVec + yVec;
-	//		std::cout << "X: " << rayVec.getX() << " Y: " << rayVec.getY() << " Z: " << rayVec.getZ() << "\t";
 			Ray beam = Ray(location, rayVec - location, longevity);
-			image[j+resX*i] += image[j+resX*i] * (samplesTaken / (samplesTaken + 1.0)) + (beam.fire(environment)/(samplesTaken + 1));
-		}
-	//	std::cout << "\n";
+		    //image[j+resX*i] += image[j+resX*i] * (samplesTaken / (samplesTaken + 1.0)) + (beam.fire(environment)/(samplesTaken + 1.0));
+	        image[j + resX*i] += beam.fire(environment);
+        }
 	}
 
 	samplesTaken++;
@@ -76,5 +63,12 @@ void Camera::takeSample()
 
 Colour* Camera::getImage()
 {
-	return image;
+    Colour* tmpImage = new Colour[resX * resY];
+    
+    for(int i = 0; i < resX * resY; i++)
+    {
+        tmpImage[i] = image[i] / samplesTaken;
+    }
+
+    return tmpImage;
 }

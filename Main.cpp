@@ -12,26 +12,26 @@ int main()
 	int resX = 640;
 	int resY = 480;
 	
-	double focalLen = 100;
-	double topWidth = 640;
-	Scene* theScene = new Scene(Colour(-255, -255, -255));
-	Sphere* groundSphere = new Sphere(Vector3(0, 20, -510), Vector3(0, 1, 0), Vector3(0, 0, 1), 500, new Diffuse(Colour(50, 50, 50)));
-	theScene->addForm(groundSphere);
+	double focalLen = 1;
+	double topWidth = 5;
+	Scene* theScene = new Scene(Colour(255, 255, 255));
+	Sphere* otherSphere = new Sphere(Vector3(0.0, 3.5, 1.0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(100, 100, 100)));
+	theScene->addForm(otherSphere);
 
-	Sphere* colorSphere = new Sphere(Vector3(0, 100, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 50, new Diffuse(Colour(55, 55, 55)));
+	Sphere* colorSphere = new Sphere(Vector3(-1.0, 3.0, 1.0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(100, 100, 100)));
 
 	theScene->addForm(colorSphere);
 
-	Camera cam = Camera(theScene, Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5, 0, 10);
+	Camera cam = Camera(theScene, Vector3(0, -4, -1), Vector3(0, 1, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5);
 
-	for(int i = 0; i < 5; i++)
+    PngFactory establishment = PngFactory();
+
+	for(int i = 0; i < 50; i++)
 	{
 		std::cout << "Taking sample " << i << " \n";
 		cam.takeSample();
+        establishment.makePng(cam.getImage(), resX, resY, "test.png");
 	}
-
-	PngFactory establishment = PngFactory();
-	establishment.makePng(cam.getImage(), resX, resY, "test.png");
 
 	return 0;
 }

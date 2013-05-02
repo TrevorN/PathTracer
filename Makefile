@@ -3,10 +3,10 @@ OBJECTS = Scene.o Vector3.o Main.o Camera.o Ray.o Colour.o Diffuse.o PngFactory.
 
 HEADERS = Scene.hpp Vector3.hpp Camera.hpp Ray.hpp Form.hpp Colour.hpp Diffuse.hpp PngFactory.hpp Material.hpp Sphere.hpp Mirror.hpp
 
-CFLAGS = -O2 -march=native -mtune=native -lpng
+CFLAGS = -lpng
 
 all : ${OBJECTS}
-	${CXX} ${CFLAGS} -o bin/PathTracer ${OBJECTS} ${HEADERS}
+	${CXX} ${CFLAGS} -o bin/PathTracer ${OBJECTS} -x c++-header ${HEADERS}
 
 clean :
 	rm -rf *.o

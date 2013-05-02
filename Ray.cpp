@@ -38,22 +38,22 @@ Colour Ray::fire(Scene* scene)
 					dist = tmpdist;
 
 				}
-			}
+            }
 		}
 
 		if(closestForm == -1)
 		{
 			rayColour += scene->getAmbience();
-			break;
+            break;
 		}
 
 
-		scene->getForm(closestForm)->collideWith(this);
 		rayColour -= scene->getForm(closestForm)->getColour(this);
+		scene->getForm(closestForm)->collideWith(this);
 		longevity--;
 	}
-
-	rayColour.normalize();
+    
+	//rayColour.normalize();
 	return rayColour;
 
 }

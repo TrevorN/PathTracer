@@ -121,6 +121,5 @@ int PngFactory::makePng(Colour* image, int resX, int resY, std::string filename)
 void PngFactory::write_row_callback(png_structp png_ptr, png_uint_32 row, int pass)
 {
 
-	std::cout << "swag" << row << "\n";
 
 }

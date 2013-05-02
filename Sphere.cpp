@@ -20,17 +20,17 @@ int Sphere::getDistance(Ray* ray)
 
 	Vector3 a = location - rayPosition;
 	Vector3 b = a.projectOnto(rayDirection);
-	if(b.getY()*rayDirection.getY()<0){//checkflip
+	double aMag = a.getMagnitude();
+    double bMag = b.getMagnitude();
+    if(bMag <= radius){//checkflip
 		return -1;
 	}
-	Vector3 c = a-b;
-	int cMag = c.getMagnitude();
-	if(cMag >= radius){ //borders happen with >, don't know why
+    //b2 + c2 = a2 so c = sqrt a2 - b2
+	double cMag = sqrt((aMag * aMag) - (bMag * bMag));
+    if(cMag >= radius){ //borders happen with >, don't know why
 		return -1;
 	}
-
-	int fMag = b.getMagnitude() - sqrt((radius*radius)-(cMag * cMag));;
-	return b.getMagnitude() - fMag;
+	return bMag - sqrt((radius*radius)-(cMag * cMag));
 }
 
 void Sphere::collideWith(Ray* ray)
@@ -59,4 +59,9 @@ Colour Sphere::getColour(Ray* ray)
 
 	return material->getColour(ray->getDirection(), ray->getPosition());
 
+}
+
+Sphere::~Sphere()
+{
+    delete material;
 }
