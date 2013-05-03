@@ -32,14 +32,29 @@ Vector3 Diffuse::bounce(Vector3 rayIn, Vector3 surfaceNormal)
 	z = sin(theta);
     
 	return Vector3(x, y, z).normalize();
-    */
+    
     return surfaceNormal.normalize();
     surfaceNormal = surfaceNormal.normalize();
     double x = surfaceNormal.getX() + (rand() / RAND_MAX) - .5;
     double y = surfaceNormal.getY() + (rand() / RAND_MAX) - .5;
     double z = surfaceNormal.getZ() + (rand() / RAND_MAX) - .5;
     return Vector3(x, y, z).normalize();
-    
+    */
+        double theta = 2*pi*((float)rand()/(float)RAND_MAX);
+        double phi = acos((float)rand()/(float)RAND_MAX);
+
+        double x = sin(theta)*sin(phi);
+        double y = cos(theta)*sin(phi);
+        double z = cos(phi);
+
+        Vector3 useless = surfaceNormal + Vector3(1,0,0);
+        Vector3 yDir = useless.crossProduct(surfaceNormal).normalize();
+        Vector3 xDir = yDir.crossProduct(surfaceNormal).normalize();
+        yDir = yDir*y;
+        xDir = xDir*x;
+
+        Vector3 zDir = surfaceNormal*z;
+        return zDir + yDir + xDir;
 }
 
 Colour Diffuse::getColour(Vector3 rayIn, Vector3 surfaceNormal)

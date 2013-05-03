@@ -50,7 +50,7 @@ void Sphere::collideWith(Ray* ray)
 	Vector3 newDirection = material->bounce(rayDirection, surfaceNormal);
 
 	ray->setPosition(newPosition);
-	ray->setDirection(surfaceNormal);
+	ray->setDirection(newDirection);
 
 }
 
