@@ -16,7 +16,7 @@ class Form
 
 	public:
 
-		virtual int getDistance(Ray*) = 0;
+		virtual double getDistance(Ray*) = 0;
 		virtual void collideWith(Ray*) = 0;
 		virtual Colour getColour(Ray*) = 0;
 

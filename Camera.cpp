@@ -39,8 +39,8 @@ void Camera::takeSample()
 	Vector3 xDir = rootDir.crossProduct(up).normalize();
 	Vector3 yDir = rootDir.crossProduct(xDir).normalize();
 
-	int halfWidth = (resX*pixWidth/2.0);
-	int halfHeight = (resY*pixWidth/2.0);
+	double halfWidth = (resX*pixWidth/2.0);
+	double halfHeight = (resY*pixWidth/2.0);
 
 	for(int i = 0; i < resY; i++)
 	{

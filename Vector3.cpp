@@ -90,7 +90,7 @@ double Vector3::dotProduct(Vector3 other)
 Vector3 Vector3::projectOnto(Vector3 other)
 {
 
-	return other * (dotProduct(other)/other.dotProduct(other));
+	return other * (dotProduct(other) / other.dotProduct(other));
 
 }
 

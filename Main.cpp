@@ -15,14 +15,14 @@ int main()
 	double focalLen = 1;
 	double topWidth = 5;
 	Scene* theScene = new Scene(Colour(255, 255, 255));
-	Sphere* otherSphere = new Sphere(Vector3(0.0, 3.5, 1.0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(100, 100, 100)));
+	Sphere* otherSphere = new Sphere(Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(100, 100, 100)));
 	theScene->addForm(otherSphere);
 
-	Sphere* colorSphere = new Sphere(Vector3(-1.0, 3.0, 1.0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(100, 100, 100)));
+	Sphere* colorSphere = new Sphere(Vector3(-1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(100, 100, 100)));
 
 	theScene->addForm(colorSphere);
 
-	Camera cam = Camera(theScene, Vector3(0, -4, -1), Vector3(0, 1, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5);
+	Camera cam = Camera(theScene, Vector3(0, -4, 0), Vector3(0, 0, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5);
 
     PngFactory establishment = PngFactory();
 

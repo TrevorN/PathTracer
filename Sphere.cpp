@@ -13,7 +13,7 @@ Sphere::Sphere(Vector3 location, Vector3 rotation, Vector3 up, double radius, Ma
 	this->material = material;
 }
 
-int Sphere::getDistance(Ray* ray)
+double Sphere::getDistance(Ray* ray)
 {
 	Vector3 rayDirection = ray->getDirection();
 	Vector3 rayPosition = ray->getPosition();
@@ -50,7 +50,7 @@ void Sphere::collideWith(Ray* ray)
 	Vector3 newDirection = material->bounce(rayDirection, surfaceNormal);
 
 	ray->setPosition(newPosition);
-	ray->setDirection(newDirection);
+	ray->setDirection(surfaceNormal);
 
 }
 

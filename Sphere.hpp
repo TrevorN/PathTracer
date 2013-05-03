@@ -12,7 +12,7 @@ class Sphere : public Form
 		~Sphere();
 		Sphere(const Sphere&);
 		Sphere& operator=(Sphere);
-		int getDistance(Ray*);
+		double getDistance(Ray*);
 		void collideWith(Ray*);
 		Colour getColour(Ray*);
 };

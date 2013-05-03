@@ -12,7 +12,7 @@ Diffuse::Diffuse(Colour colour)
 
 Vector3 Diffuse::bounce(Vector3 rayIn, Vector3 surfaceNormal)
 {
-    /*
+    /*    
     surfaceNormal = surfaceNormal.normalize();
 	double x = surfaceNormal.getX();
 	double y = surfaceNormal.getY();
@@ -33,12 +33,13 @@ Vector3 Diffuse::bounce(Vector3 rayIn, Vector3 surfaceNormal)
     
 	return Vector3(x, y, z).normalize();
     */
-
+    return surfaceNormal.normalize();
     surfaceNormal = surfaceNormal.normalize();
     double x = surfaceNormal.getX() + (rand() / RAND_MAX) - .5;
     double y = surfaceNormal.getY() + (rand() / RAND_MAX) - .5;
     double z = surfaceNormal.getZ() + (rand() / RAND_MAX) - .5;
     return Vector3(x, y, z).normalize();
+    
 }
 
 Colour Diffuse::getColour(Vector3 rayIn, Vector3 surfaceNormal)
