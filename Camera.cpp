@@ -52,9 +52,9 @@ void Camera::takeSample()
 			Vector3 xVec = xDir * ((j * pixWidth) - halfWidth);
 			Vector3 rayVec = rootDir + xVec + yVec;
 			Ray beam = Ray(location, rayVec - location, longevity);
-		    //image[j+resX*i] += image[j+resX*i] * (samplesTaken / (samplesTaken + 1.0)) + (beam.fire(environment)/(samplesTaken + 1.0));
-	        image[j + resX*i] += beam.fire(environment);
-        }
+			//image[j+resX*i] += image[j+resX*i] * (samplesTaken / (samplesTaken + 1.0)) + (beam.fire(environment)/(samplesTaken + 1.0));
+			image[j + resX*i] += beam.fire(environment);
+		}
 	}
 
 	samplesTaken++;
@@ -68,6 +68,7 @@ Colour* Camera::getImage()
     for(int i = 0; i < resX * resY; i++)
     {
         tmpImage[i] = image[i] / samplesTaken;
+	tmpImage[i].normalize();
     }
 
     return tmpImage;

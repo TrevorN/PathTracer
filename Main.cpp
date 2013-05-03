@@ -9,29 +9,37 @@
 
 int main()
 {
-	int resX = 500;
-	int resY = 500;
-	
-	double focalLen = 1;
-	double topWidth = 6;
-	Scene* theScene = new Scene(Colour(255, 255, 255));
-	Sphere* otherSphere = new Sphere(Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(100, 100, 100)));
-	theScene->addForm(otherSphere);
+	int resX = 1280;
+	int resY = 800;
 
-	Sphere* colorSphere = new Sphere(Vector3(-1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(100, 100, 100)));
+	double focalLen = 2;
+	double topWidth = 17;
+	Scene* theScene = new Scene(Colour(5, 5, 5));
 
-	theScene->addForm(colorSphere);
+    Sphere* centerSphere = new Sphere(Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(50, 50, 50)));
+	theScene->addForm(centerSphere);
 
-	Camera cam = Camera(theScene, Vector3(0, -4, 0), Vector3(0, 0, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5);
+    Sphere* redSphere = new Sphere(Vector3(0, 0, 3), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(-2000, 0, 0)));
+	theScene->addForm(redSphere);
 
-    PngFactory establishment = PngFactory();
+    Sphere* blueSphere = new Sphere(Vector3(-2.59808, 0, -1.5), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(0, -2000, 0)));
+    theScene->addForm(blueSphere);
 
-	for(int i = 0; i < 50; i++)
+
+    Sphere* greenSphere = new Sphere(Vector3(2.59808, 0, -1.5), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(0, 0,-2000)));
+    theScene->addForm(greenSphere);
+
+    Camera cam = Camera(theScene, Vector3(0, -10, 1), Vector3(0, 0, 1), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5);
+
+	PngFactory establishment = PngFactory();
+
+	for(int i = 0; i < 500; i++)
 	{
 		std::cout << "Taking sample " << i << " \n";
 		cam.takeSample();
-        establishment.makePng(cam.getImage(), resX, resY, "test.png");
 	}
 
-	return 0;
+	establishment.makePng(cam.getImage(), resX, resY, "test.png");
+	
+    return 0;
 }
