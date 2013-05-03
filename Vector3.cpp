@@ -77,21 +77,18 @@ bool Vector3::operator!=(const Vector3 &other) const
 Vector3 Vector3::crossProduct(Vector3 other)
 {
 	return Vector3((y * other.getZ()) - (z * other.getY()),
-		(z * other.getX()) - (x * other.getZ()),
-		(x * other.getY()) - (y * other.getX()));
+		           (z * other.getX()) - (x * other.getZ()),
+	               (x * other.getY()) - (y * other.getX()));
 }
 
 double Vector3::dotProduct(Vector3 other)
 {
-
-	return (x*other.getX())+(y*other.getY())+(z*other.getZ());
+	return (x * other.getX()) + (y * other.getY()) + (z * other.getZ());
 }
 
 Vector3 Vector3::projectOnto(Vector3 other)
 {
-
 	return other * (dotProduct(other) / other.dotProduct(other));
-
 }
 
 double Vector3::angleBetween(Vector3 other)

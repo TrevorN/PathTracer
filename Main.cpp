@@ -9,11 +9,11 @@
 
 int main()
 {
-	int resX = 640;
-	int resY = 480;
+	int resX = 500;
+	int resY = 500;
 	
 	double focalLen = 1;
-	double topWidth = 5;
+	double topWidth = 6;
 	Scene* theScene = new Scene(Colour(255, 255, 255));
 	Sphere* otherSphere = new Sphere(Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(100, 100, 100)));
 	theScene->addForm(otherSphere);
