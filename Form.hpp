@@ -13,6 +13,7 @@ class Form
 	protected:
 		Material* material;
 		Vector3 location, rotation, up;
+		double distance;
 
 	public:
 
