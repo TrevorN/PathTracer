@@ -11,7 +11,7 @@ int main()
 {
 	int resX = 500;
 	int resY = 500;
-	
+
 	double focalLen = 1;
 	double topWidth = 6;
 	Scene* theScene = new Scene(Colour(255, 255, 255));
@@ -24,13 +24,13 @@ int main()
 
 	Camera cam = Camera(theScene, Vector3(0, -4, 0), Vector3(0, 0, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5);
 
-    PngFactory establishment = PngFactory();
+	PngFactory establishment = PngFactory();
 
-	for(int i = 0; i < 50; i++)
+	for(int i = 0; i < 500; i++)
 	{
 		std::cout << "Taking sample " << i << " \n";
 		cam.takeSample();
-        establishment.makePng(cam.getImage(), resX, resY, "test.png");
+		establishment.makePng(cam.getImage(), resX, resY, "test.png");
 	}
 
 	return 0;

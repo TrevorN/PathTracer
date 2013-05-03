@@ -7,9 +7,9 @@ Ray::Ray(Vector3 location, Vector3 direction, int longevity)
 {
 
 	/*
-	this->direction = focus - location;
-	this->direction = this->direction.normalize();
-	*/
+	   this->direction = focus - location;
+	   this->direction = this->direction.normalize();
+	   */
 	this->direction = direction.normalize();
 	this->position = location;
 	this->longevity = longevity;
@@ -33,18 +33,18 @@ Colour Ray::fire(Scene* scene)
 			{
 				if(tmpdist < dist)
 				{
-					
+
 					closestForm = i;
 					dist = tmpdist;
 
 				}
-            }
+			}
 		}
 
 		if(closestForm == -1)
 		{
 			rayColour += scene->getAmbience();
-            break;
+			break;
 		}
 
 
@@ -52,7 +52,7 @@ Colour Ray::fire(Scene* scene)
 		scene->getForm(closestForm)->collideWith(this);
 		longevity--;
 	}
-    
+
 	//rayColour.normalize();
 	return rayColour;
 
