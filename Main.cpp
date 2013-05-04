@@ -16,7 +16,7 @@ int main()
 	double topWidth = 17;
 	Scene* theScene = new Scene(Colour(5, 5, 5));
 
-    Sphere* centerSphere = new Sphere(Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(50, 50, 50)));
+    Sphere* centerSphere = new Sphere(Vector3(0, 2, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 2, new Diffuse(Colour(50, 50, 50)));
 	theScene->addForm(centerSphere);
 
     Sphere* redSphere = new Sphere(Vector3(0, 0, 3), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(-2000, 0, 0)));
@@ -33,13 +33,14 @@ int main()
 
 	PngFactory establishment = PngFactory();
 
-	for(int i = 0; i < 50; i++)
+	for(int i = 0; i < 5; i++)
 	{
 		std::cout << "Taking sample " << i << " \n";
 		cam.takeSample();
 	}
 
 	establishment.makePng(cam.getImage(), resX, resY, "test.png");
+
 	
     return 0;
 }
