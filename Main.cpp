@@ -9,8 +9,8 @@
 
 int main()
 {
-	int resX = 1280;
-	int resY = 800;
+	int resX = 500;
+	int resY = 500;
 
 	double focalLen = 2;
 	double topWidth = 17;
@@ -33,7 +33,7 @@ int main()
 
 	PngFactory establishment = PngFactory();
 
-	for(int i = 0; i < 500; i++)
+	for(int i = 0; i < 50; i++)
 	{
 		std::cout << "Taking sample " << i << " \n";
 		cam.takeSample();
