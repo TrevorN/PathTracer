@@ -21,11 +21,11 @@ double Sphere::getDistance(Ray* ray)
 
 	Vector3 a = location - rayPosition;
 	Vector3 b = a.projectOnto(rayDirection);
-	double aMag = a.getMagnitude();
 	double bMag = b.getMagnitude();
 	if(b.getY()*rayDirection.getY() < 0){//checkflip
 		return -1;
 	}
+	double aMag = a.getMagnitude();
     //b2 + c2 = a2 so c = sqrt a2 - b2
 	double cMag = sqrt((aMag * aMag) - (bMag * bMag));
 	if(cMag >= radius){ //borders happen with >, don't know why
