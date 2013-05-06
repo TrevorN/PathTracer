@@ -8,7 +8,7 @@ class Cylinder : public Form
 {
 		double radius;
 		double height;
-		char face;
+		int face;
 	public:
 		Cylinder(Vector3, Vector3, Vector3, double, double, Material*);
 		~Cylinder();

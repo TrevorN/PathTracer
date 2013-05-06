@@ -47,7 +47,7 @@ Vector3 Diffuse::bounce(Vector3 rayIn, Vector3 surfaceNormal)
     double y = cos(theta)*sin(phi);
     double z = cos(phi);
 
-    Vector3 useless = surfaceNormal + Vector3(1,0,0);
+    Vector3 useless = surfaceNormal + Vector3(1,1,1);
     Vector3 yDir = useless.crossProduct(surfaceNormal).normalize();
     Vector3 xDir = yDir.crossProduct(surfaceNormal).normalize();
     yDir = yDir*y;
