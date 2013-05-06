@@ -10,8 +10,8 @@
 
 int main()
 {
-	int resX = 1280;
-	int resY = 720;
+	int resX = 500;
+	int resY = 500;
 
 	double focalLen = 2;
 	double topWidth = 17;

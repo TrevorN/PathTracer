@@ -3,9 +3,7 @@
 
 class Colour{
 
-		int r;
-		int g;
-		int b;
+		int comps[3];
 		
 	public:
 		Colour();
