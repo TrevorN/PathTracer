@@ -24,7 +24,11 @@ double Cylinder::getDistance(Ray* ray)
 	Vector3 rayPosition = ray->getPosition();
 	Vector3 a = location - rayPosition;
 
-	Vector3 b = rayDirection * a.getMagnitude() * (a.getMagnitude() * rayDirection.getMagnitude() / (a.dotProduct(rayDirection)));
+//	double invCos = (a.getMagnitude() * rayDirection.getMagnitude() / a.dotProduct(rayDirection));
+	Vector3 norm = (a - a.projectOnto(up)).normalize();
+	double disttoPlane = a.dotProduct(norm)/(rayDirection.dotProduct(norm));
+//	Vector3 b = rayDirection * a.getMagnitude() * invCos;
+	Vector3 b = rayDirection * disttoPlane;
 	double bMag = b.getMagnitude();
 	Vector3 c = b - a;
 	if(b.getX()*rayDirection.getX() < 0 || b.getY()*rayDirection.getY() < 0 || b.getZ()*rayDirection.getZ() < 0){//checkflip
@@ -38,11 +42,11 @@ double Cylinder::getDistance(Ray* ray)
 	double artBMag = artB.getMagnitude();
 
 	// r^2 = |artRad|^2+|artB'|^2-2*|artB'|*artRad*artB/|artB| : law of cosines
-	// 0 = |artB'|^2 - 2 * artRad * artB/|artB| * |artB'| - r^2 + artRad^2
-	double quadB = -2 * artRad.dotProduct(artB)/artBMag;
+	// 0 = |artB'|^2 - 2 * artRad * artB/|artB| * |artB'| + |artRad|^2 - r^2
+	double quadB = -2.0 * artRad.dotProduct(artB)/artBMag;
 	double quadC = artRadMag*artRadMag - radius*radius;
-	double off = ((-quadB + sqrt(quadB * quadB - 4 * quadC))/2.0);
-	distance = (1.0 - off/artBMag) * bMag;
+	double off = ((-quadB + sqrt(quadB * quadB - 4.0 * quadC))/2.0);
+	distance = (artBMag - off) * bMag / artBMag;
 
 //	distance = (1.0 - (sqrt((radius*radius)-(artRadMag*artRadMag)))/artBMag)*bMag;
 
@@ -55,6 +59,8 @@ double Cylinder::getDistance(Ray* ray)
 	if(relHeight >= height * 0.5){
 		distance = -1;
 	}
+
+	
 
 
 	//caps
@@ -90,6 +96,7 @@ double Cylinder::getDistance(Ray* ray)
 	double sideBMag = sideB.getMagnitude() + sign * offset;
 	sideB = sideB.normalize() * sideBMag;
 	*/
+	//d = (p0-l0)*n/l*n
 	//(p - side - rayPosition) * up = 0
 	//(d*rayDirection + rayPosition - side - rayPosition) * up = 0
 	//d * (rayDirection * up) + (-side) * up = 0

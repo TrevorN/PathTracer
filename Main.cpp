@@ -17,7 +17,7 @@ int main()
 	double topWidth = 17;
 	Scene* theScene = new Scene(Colour(0, 0, 0));
 
-	Cylinder* centerCylinder = new Cylinder(Vector3(0, 4, 0), Vector3(1, 0, 0), Vector3(0, 1, 1), 3, 3, new Diffuse(Colour(50, 50, 50)));
+	Cylinder* centerCylinder = new Cylinder(Vector3(0, 3, 0), Vector3(1, 0, 0), Vector3(0, 1, 1), 1, 5, new Diffuse(Colour(50, 50, 50)));
 	theScene->addForm(centerCylinder);
 	
 	/*
@@ -26,7 +26,7 @@ int main()
 
 	*/
 //	/*
-	Sphere* redSphere = new Sphere(Vector3(0, 0, 3), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(-400000, 0, 0)));
+	Sphere* redSphere = new Sphere(Vector3(0, 0, 3), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(-4000, 0, 0)));
 	theScene->addForm(redSphere);
 
 	Sphere* greenSphere = new Sphere(Vector3(-2.59808, 0, -1.5), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(0, -4000, 0)));
@@ -43,7 +43,7 @@ int main()
 
 	PngFactory establishment = PngFactory();
 
-	for(int i = 0; i < 5; i++)
+	for(int i = 0; i < 50; i++)
 	{
 		std::cout << "Taking sample " << i << " \n";
 		cam.takeSample();
