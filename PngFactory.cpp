@@ -97,11 +97,11 @@ int PngFactory::makePng(Colour* image, int resX, int resY, std::string filename)
 	png_set_shift(png_ptr, sig_bit);
 
 	
-	if(resY > PNG_UINT_32_MAX/png_sizeof(png_bytep)){
+	//if(resY > PNG_UINT_32_MAX/png_sizeof(png_bytep)){
 
-		png_error(png_ptr, "too big image");
+	//	png_error(png_ptr, "too big image");
 
-	}
+	//}
 
 	png_write_image(png_ptr, row_pointers);
 

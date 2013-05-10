@@ -16,18 +16,19 @@ int main()
 
 	double focalLen = 2;
 	double topWidth = 17;
-	Scene* theScene = new Scene(Colour(0, 0, 0));
+	Scene* theScene = new Scene(Colour(20, 20, 20));
 
-	Cylinder* centerCylinder = new Cylinder(Vector3(0, 0, -6), Vector3(1, 0, 0), Vector3(0, 0, 1), 100, 8, new Diffuse(Colour(50, 50, 50)));
+
+	Cylinder* centerCylinder = new Cylinder(Vector3(0, 0, -3), Vector3(1, 0, 0), Vector3(0, 0, 1), 100, 1, new Diffuse(Colour(0, 0, 0.6)));
 	theScene->addForm(centerCylinder);
 	
-
+	/*
 	Sphere* centerSphere = new Sphere(Vector3(0, 2, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(50, 50, 50)));
 	theScene->addForm(centerSphere);
 
 	
-//	/*
-	Sphere* redSphere = new Sphere(Vector3(0, 0, 3), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Emissive(Colour(-6000, 0, 0)));
+	/*
+	Sphere* redSphere = new Sphere(Vector3(0, 0, 3), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(-4000, 0, 0)));
 	theScene->addForm(redSphere);
 
 	Sphere* greenSphere = new Sphere(Vector3(-2.59808, 0, -1.5), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Emissive(Colour(0, -6000, 0)));
@@ -36,7 +37,15 @@ int main()
 
 	Sphere* blueSphere = new Sphere(Vector3(2.59808, 0, -1.5), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Emissive(Colour(0, 0, -6000)));
 	theScene->addForm(blueSphere);
-//	*/
+	*/
+	Sphere* blueSphere = new Sphere(Vector3(-3, 0, 3), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Emissive(Colour(0, -1270, -2550)));
+	theScene->addForm(blueSphere);
+
+	Sphere* orangeSphere = new Sphere(Vector3(3, 0, 3), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Emissive(Colour(-2550, -1270, 0)));
+	theScene->addForm(orangeSphere);
+
+	Sphere* whiteSphere = new Sphere(Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(0, 0, 0), 0.5));
+	theScene->addForm(whiteSphere);
 
 	
 
@@ -44,7 +53,7 @@ int main()
 
 	PngFactory establishment = PngFactory();
 
-	for(int i = 0; i < 50; i++)
+	for(int i = 0; i < 1000; i++)
 	{
 		std::cout << "Taking sample " << i << " \n";
 		cam.takeSample();

@@ -1,4 +1,5 @@
 #include "Colour.hpp"
+#include <cmath>
 
 Colour::Colour()
 {
@@ -121,5 +122,4 @@ void Colour::normalize()
 	comps[0] = r>255?255:r<0?0:r;
 	comps[1] = g>255?255:g<0?0:g;
 	comps[2] = b>255?255:b<0?0:b;
-
 }
