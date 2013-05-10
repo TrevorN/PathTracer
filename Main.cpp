@@ -15,9 +15,9 @@ int main()
 
 	double focalLen = 2;
 	double topWidth = 17;
-	Scene* theScene = new Scene(Colour(50, 50, 50));
+	Scene* theScene = new Scene(Colour(20, 20, 20));
 
-	Cylinder* centerCylinder = new Cylinder(Vector3(0, 3, 0), Vector3(1, 0, 0), Vector3(0, 1, 1), 1, 5, new Diffuse(Colour(50, 50, 50)));
+	Cylinder* centerCylinder = new Cylinder(Vector3(0, 0, -3), Vector3(1, 0, 0), Vector3(0, 0, 1), 100, 1, new Diffuse(Colour(0, 0, 0)));
 	theScene->addForm(centerCylinder);
 	
 	/*
@@ -25,7 +25,7 @@ int main()
 	theScene->addForm(centerSphere);
 
 	*/
-//	/*
+	/*
 	Sphere* redSphere = new Sphere(Vector3(0, 0, 3), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(-4000, 0, 0)));
 	theScene->addForm(redSphere);
 
@@ -35,7 +35,15 @@ int main()
 
 	Sphere* blueSphere = new Sphere(Vector3(2.59808, 0, -1.5), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(0, 0, -4000)));
 	theScene->addForm(blueSphere);
-//	*/
+	*/
+	Sphere* blueSphere = new Sphere(Vector3(-3, 0, 3), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(0, -1270, -2550)));
+	theScene->addForm(blueSphere);
+
+	Sphere* orangeSphere = new Sphere(Vector3(3, 0, 3), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(-2550, -1270, 0)));
+	theScene->addForm(orangeSphere);
+
+	Sphere* whiteSphere = new Sphere(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(0, 0, 1), 1, new Diffuse(Colour(0, 0, 0)));
+	theScene->addForm(whiteSphere);
 
 	
 
@@ -43,7 +51,7 @@ int main()
 
 	PngFactory establishment = PngFactory();
 
-	for(int i = 0; i < 50; i++)
+	for(int i = 0; i < 500; i++)
 	{
 		std::cout << "Taking sample " << i << " \n";
 		cam.takeSample();

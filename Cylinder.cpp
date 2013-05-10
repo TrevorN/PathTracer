@@ -31,7 +31,7 @@ double Cylinder::getDistance(Ray* ray)
 	Vector3 b = rayDirection * disttoPlane;
 	double bMag = b.getMagnitude();
 	Vector3 c = b - a;
-	if(b.getX()*rayDirection.getX() < 0 || b.getY()*rayDirection.getY() < 0 || b.getZ()*rayDirection.getZ() < 0){//checkflip
+	if(disttoPlane < 0){//checkflip
 		return -1;
 	}
 
@@ -102,6 +102,9 @@ double Cylinder::getDistance(Ray* ray)
 	//d * (rayDirection * up) + (-side) * up = 0
 	//d = (side) * up /(rayDirection * up)
 	double dPl = side.dotProduct(up)/rayDirection.dotProduct(up);
+	if(dPl <= 0.0000001){//checkflip
+		return -1;
+	}
 
 
 	if(((rayDirection * dPl) - side).getMagnitude() < radius){
