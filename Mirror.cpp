@@ -18,7 +18,7 @@ Vector3 Mirror::bounce(Vector3 direction, Vector3 normal)
 {
 
 	Vector3 projection = direction.projectOnto(normal);
-	Vector3 resultant = direction - (projection * 2);
+	Vector3 resultant = (direction) - (projection * 2);
 	return resultant;
 
 }

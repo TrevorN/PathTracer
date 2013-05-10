@@ -34,6 +34,11 @@ Colour Ray::fire(Scene* scene)
 				if(tmpdist < dist)
 				{
 
+//					if(!tmpdist){
+//						longevity = 0;
+//						break;
+//					}
+
 					closestForm = i;
 					dist = tmpdist;
 
@@ -55,6 +60,12 @@ Colour Ray::fire(Scene* scene)
 
 	//rayColour.normalize();
 	return rayColour;
+
+}
+
+void Ray::setLongevity(int l){
+
+	longevity = l;
 
 }
 

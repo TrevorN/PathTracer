@@ -17,6 +17,7 @@ class Ray{
 		Ray();
 		Ray(Vector3, Vector3, int);
 		Colour fire(Scene*);
+		void setLongevity(int);
 		void setPosition(Vector3);
 		Vector3 getPosition();
 		void setDirection(Vector3);
