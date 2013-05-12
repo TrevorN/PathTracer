@@ -8,7 +8,7 @@ Cylinder::Cylinder(Vector3 location, Vector3 rotation, Vector3 up, double radius
 {
 	this->location = location;
 	this->rotation = rotation.normalize();
-	this->up = (up - up.projectOnto(rotation)).normalize();//rotation.crossProduct(up).crossProduct(rotation).normalize();
+	this->up = (up - up.projectOnto(rotation)).normalize();//makes perpendicular
 	this->radius = radius;
 	this->height = height;
 	this->material = material;
@@ -24,10 +24,8 @@ double Cylinder::getDistance(Ray* ray)
 	Vector3 rayPosition = ray->getPosition();
 	Vector3 a = location - rayPosition;
 
-//	double invCos = (a.getMagnitude() * rayDirection.getMagnitude() / a.dotProduct(rayDirection));
-	Vector3 norm = (a - a.projectOnto(up)).normalize();
+	Vector3 norm = (a - a.projectOnto(up)).normalize(); //finds plane normal for intersect
 	double disttoPlane = a.dotProduct(norm)/(rayDirection.dotProduct(norm));
-//	Vector3 b = rayDirection * a.getMagnitude() * invCos;
 	Vector3 b = rayDirection * disttoPlane;
 	double bMag = b.getMagnitude();
 	Vector3 c = b - a;
@@ -79,36 +77,15 @@ double Cylinder::getDistance(Ray* ray)
 		tmpFace = -1;
 		side = bottom;
 	}
-
-	/*
-	Vector3 sideB = side.projectOnto(rayDirection);
-	Vector3 sideC = side - sideB;
-	double sideCMag = sideC.getMagnitude();
-	Vector3 depth = sideC.projectOnto(up);
-	double depthMag = depth.getMagnitude();
-
-
-	double offset = sideCMag * depthMag / (sideC - depth).getMagnitude(); // proportions 
-	int sign = -1; //flips through solid
-	if(up.getX()*depth.getX() < 0 || up.getY() * depth.getY() < 0){
-		sign = 1;
-	}
-	double sideBMag = sideB.getMagnitude() + sign * offset;
-	sideB = sideB.normalize() * sideBMag;
-	*/
 	//d = (p0-l0)*n/l*n
 	//(p - side - rayPosition) * up = 0
 	//(d*rayDirection + rayPosition - side - rayPosition) * up = 0
 	//d * (rayDirection * up) + (-side) * up = 0
 	//d = (side) * up /(rayDirection * up)
 	double dPl = side.dotProduct(up)/rayDirection.dotProduct(up);
-	if(dPl <= 0.0000001){//checkflip
-		return -1;
-	}
-
 
 	if(((rayDirection * dPl) - side).getMagnitude() < radius){
-		if(dPl < distance || distance == -1){
+		if(dPl < distance || distance == -1 && dPl > 0.000001){
 			distance = dPl;
 			face = tmpFace;
 		}
@@ -142,7 +119,7 @@ void Cylinder::collideWith(Ray* ray)
 	Vector3 newDirection = material->bounce(rayDirection, surfaceNormal.normalize());
 
 	ray->setPosition(newPosition);
-	ray->setDirection(newDirection);
+	ray->setDirection(newDirection.normalize());
 
 }
 

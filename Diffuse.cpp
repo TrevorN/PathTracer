@@ -43,8 +43,6 @@ Vector3 Diffuse::bounce(Vector3 rayIn, Vector3 surfaceNormal)
 		Vector3 resultant = (rayIn) - (projection * 2);
 		return (final*hardness)+(resultant*(1-hardness));
 	}
-
-
 }
 
 Colour Diffuse::getColour(Vector3 rayIn, Vector3 surfaceNormal)

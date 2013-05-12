@@ -3,8 +3,6 @@
 #include <cmath>
 #include <cstdlib>
 
-const double pi = 4.0 * atan(1.0);
-
 Emissive::Emissive(Colour colour)
 {
     this->colour = colour;
