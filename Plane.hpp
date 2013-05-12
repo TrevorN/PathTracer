@@ -11,9 +11,9 @@ class Plane : public Form
 		~Plane();
 		Plane(const Plane&);
 		Plane& operator=(Plane);
-		double getDistance(Ray*) = 0;
-		void collideWith(Ray*) = 0;
-		Colour getColour(Ray*) = 0;
-}
+		double getDistance(Ray*);
+		void collideWith(Ray*);
+		Colour getColour(Ray*);
+};
 
 #endif

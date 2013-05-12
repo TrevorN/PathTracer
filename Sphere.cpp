@@ -47,7 +47,6 @@ void Sphere::collideWith(Ray* ray)
 	Vector3 rayDirection = ray->getDirection();
 	Vector3 rayPosition = ray->getPosition();
 	Vector3 newPosition = rayPosition + (rayDirection.normalize() * distance);
-
 	Vector3 surfaceNormal = (newPosition - location).normalize();
 	Vector3 newDirection = material->bounce(rayDirection, surfaceNormal);
 
