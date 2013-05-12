@@ -1,7 +1,7 @@
 CXX = g++ -g
-OBJECTS = Scene.o Vector3.o Main.o Camera.o Ray.o Colour.o Diffuse.o Emissive.o PngFactory.o Sphere.o Mirror.o Cylinder.o Plane.o
+OBJECTS = Scene.o Vector3.o Main.o Camera.o Ray.o Colour.o Diffuse.o Emissive.o PngFactory.o Sphere.o Mirror.o Cylinder.o Plane.o Triangle.o
 
-HEADERS = Scene.hpp Vector3.hpp Camera.hpp Ray.hpp Form.hpp Colour.hpp Diffuse.hpp Emissive.hpp PngFactory.hpp Material.hpp Sphere.hpp Mirror.hpp Cylinder.hpp Plane.hpp
+HEADERS = Scene.hpp Vector3.hpp Camera.hpp Ray.hpp Form.hpp Colour.hpp Diffuse.hpp Emissive.hpp PngFactory.hpp Material.hpp Sphere.hpp Mirror.hpp Cylinder.hpp Plane.hpp Triangle.hpp
 
 CFLAGS = -lpng
 

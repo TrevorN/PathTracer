@@ -10,7 +10,9 @@ Vector3::Vector3(double xin, double yin, double zin)
 
 Vector3::Vector3()
 {
-
+    comps[0] = 0;
+    comps[1] = 0;
+    comps[2] = 0;
 }
 
 double Vector3::getMagnitude()

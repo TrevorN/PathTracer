@@ -8,7 +8,20 @@
 #include "Diffuse.hpp"
 #include "Emissive.hpp"
 #include "Plane.hpp"
+#include "Triangle.hpp"
 #include <iostream>
+#include <thread>
+
+void workunit(Colour* image, Camera c)
+{
+    for(int i = 0; i < 150; i++)
+    {
+        std::cout << "Taking Sample: " << i << " \n";
+        c.takeSample();
+    }
+
+    image = c.getImage();
+}
 
 int main()
 {
@@ -17,40 +30,30 @@ int main()
 
 	double focalLen = 2;
 	double topWidth = 17;
-	Scene* theScene = new Scene(Colour(255, 255, 255));
+	Scene* theScene = new Scene(Colour(200, 200, 200));
 
-	Sphere* lightSphere = new Sphere(Vector3(0, 0, 12), Vector3(0, 1, 0), Vector3(0, 0, 1), 2, new Emissive(Colour(-500, -400, -500)));
-	theScene->addForm(lightSphere);
-	
-	Sphere* lightSpherea = new Sphere(Vector3(0, 12, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 2, new Emissive(Colour(-500, -400, -500)));
-	theScene->addForm(lightSpherea);
-    
-	Sphere* lightSphereb = new Sphere(Vector3(20, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 2, new Emissive(Colour(-500, -400, -500)));
-	theScene->addForm(lightSphereb);
-   
-    Sphere* focusSphere = new Sphere(Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 5, new Diffuse(Colour(15, 15, 15)));
-	theScene->addForm(focusSphere);
+    Vector3 pointA = Vector3(0, -2, 5);
+    Vector3 pointB = Vector3(0, 5, 0);
+    Vector3 pointC = Vector3(-5, -5, 0);
+    Vector3 pointD = Vector3(5, -5, 0);
 
-	Plane* floorPlane = new Plane(Vector3(0, 0, -5), Vector3(0, 0, 1), new Diffuse(Colour(20, 20, 40)));
-	theScene->addForm(floorPlane);
+    theScene->addForm(new Triangle(pointA, pointB, pointC, new Diffuse(Colour(40, 40, 20))));
+    theScene->addForm(new Triangle(pointA, pointC, pointD, new Diffuse(Colour(40, 40, 20))));
+    theScene->addForm(new Triangle(pointA, pointB, pointD, new Diffuse(Colour(40, 40, 20))));
+    theScene->addForm(new Sphere(Vector3(0, -9, 6), Vector3(0, 0, 1), Vector3(0, 1, 0), 2, new Emissive(Colour(-750, -500, -75))));
+    theScene->addForm(new Sphere(Vector3(5, 5, 0), Vector3(0, 0, 1), Vector3(0, 1, 0), 2, new Emissive(Colour(-50, -50, -500))));
+    theScene->addForm(new Plane(Vector3(0, 0, 0), Vector3(0, 0, 1), new Diffuse(Colour(50, 20, 50))));
+    theScene->addForm(new Plane(Vector3(0, 5, 0), Vector3(0, -1, 0), new Diffuse(Colour(20, 50, 50))));
+    theScene->addForm(new Plane(Vector3(5, 0, 0), Vector3(-1, 0, 0), new Diffuse(Colour(50, 50, 20))));
 
-	Plane* leftPlane = new Plane(Vector3(-7, 0, 0), Vector3(1, 0, 0), new Diffuse(Colour(40, 20, 20)));
-	theScene->addForm(leftPlane);
+    Colour* imageA;
 
-	Plane* rightPlane = new Plane(Vector3(0, -7, 0), Vector3(0, 1, 0), new Diffuse(Colour(20, 40, 20)));
-    theScene->addForm(rightPlane);
-
-	Camera cam = Camera(theScene, Vector3(40, 20, 1), Vector3(0, 0, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5);
+    std::thread t(workunit, imageA, Camera(theScene, Vector3(-10, -10, 4), Vector3(0, 0, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 5));
+    t.join();
 
 	PngFactory establishment = PngFactory();
 
-	for(int i = 0; i < 300; i++)
-	{
-		std::cout << "Taking sample " << i << " \n";
-		cam.takeSample();
-	}
-
-	establishment.makePng(cam.getImage(), resX, resY, "test.png");
-
-	return 0;
+	establishment.makePng(imageA, resX, resY, "test.png");
+    
+    return 0;
 }

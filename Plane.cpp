@@ -12,10 +12,15 @@ double Plane::getDistance(Ray* ray)
 {
 	Vector3 rayPosition = ray->getPosition();
 	Vector3 rayDirection = ray->getDirection();
-
-    rayPosition = rayPosition + rayDirection * .1;
+    
+    //rayPosition = rayPosition + rayDirection * .1;
     
     distance = up.dotProduct(location - rayPosition) / up.dotProduct(rayDirection);
+
+    if(distance < .001)
+    {
+        return -1;
+    }
 
     Vector3 stoPos = rayPosition + (rayDirection.normalize() * distance);
 
