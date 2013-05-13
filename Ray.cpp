@@ -5,11 +5,6 @@
 
 Ray::Ray(Vector3 location, Vector3 direction, int longevity)
 {
-
-	/*
-	   this->direction = focus - location;
-	   this->direction = this->direction.normalize();
-	   */
 	this->direction = direction.normalize();
 	this->position = location;
 	this->longevity = longevity;
@@ -81,7 +76,10 @@ Vector3 Ray::getPosition()
 
 void Ray::setDirection(Vector3 direction)
 {
-	this->direction = direction.normalize();
+	this->direction = direction;
+	if(direction.getMagnitude() == 0){
+		longevity = 0;
+	}
 }
 
 Vector3 Ray::getDirection()

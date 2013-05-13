@@ -24,7 +24,7 @@ double Plane::getDistance(Ray* ray)
 
     Vector3 stoPos = rayPosition + (rayDirection.normalize() * distance);
 
-    if(rayDirection.getY() * (stoPos - rayPosition).getY() < 0)
+    if(distance <= 0)
     {
         return -1;
     }
