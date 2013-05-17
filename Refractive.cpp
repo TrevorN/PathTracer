@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Refractive.hpp"
 #include <cmath>
 
@@ -24,6 +25,11 @@ Vector3 Refractive::bounce(Vector3 rayIn, Vector3 surfaceNormal)
 	//	double y = cos(theta)*sin(phi);
 	//	double z = cos(phi);
 
+	double tmpRefr = refractiveIndex;
+	if(surfaceNormal.dotProduct(rayIn) > 0){
+		tmpRefr = 1.0/tmpRefr;
+		surfaceNormal = surfaceNormal*-1;
+	}
 	if(refractiveIndex == 1){
 		return rayIn;
 	} else {
@@ -31,7 +37,7 @@ Vector3 Refractive::bounce(Vector3 rayIn, Vector3 surfaceNormal)
 		double surfaceNormalMag = surfaceNormal.getMagnitude();
 		double cos = -1*rayIn.dotProduct(surfaceNormal)/(rayInMag*surfaceNormalMag);
 		double sin = sqrt(1 - cos * cos);
-		double newSin = sin/refractiveIndex;
+		double newSin = sin/tmpRefr;
 		double newCos = sqrt(1 - newSin * newSin);
 		//sino/sinn = refractiveIndex/1
 		//sinn = sino/refractiveIndex
