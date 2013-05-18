@@ -26,11 +26,6 @@ double Triangle::getDistance(Ray* ray)
 
 	Vector3 stoPos = rayPosition + (rayDirection.normalize() * distance);
 
-	if(rayDirection.getY() * (stoPos - rayPosition).getY() < 0)
-	{
-		return -1;
-	}
-
 	double a = (points[1] - points[0]).crossProduct(stoPos - points[0]).dotProduct(up);
 	double b = (points[2] - points[1]).crossProduct(stoPos - points[1]).dotProduct(up);
 	double c = (points[0] - points[2]).crossProduct(stoPos - points[2]).dotProduct(up);
