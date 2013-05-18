@@ -26,23 +26,24 @@ double Sphere::getDistance(Ray* ray)
 	if(b.getY()*rayDirection.getY() < 0){//checkflip
 		return -1;
 	}
-    //b2 + c2 = a2 so c = sqrt a2 - b2
-	double cMag = sqrt((aMag * aMag) - (bMag * bMag));
-	if(cMag > radius){ //borders happen with >, don't know why
+	//b2 + c2 = a2 so c = sqrt a2 - b2
+	double squaRad = radius*radius;
+	double csqMag = (aMag * aMag) - (bMag * bMag);
+	if(csqMag > squaRad){ //borders happen with >, don't know why
 		return -1;
 	}
 
 	//insidestuff
 	int sign = 0;
-	if(aMag <= radius){
-		std::cout<<"swag";
+	if(aMag < radius + .000001){
 		sign = 1;
 	} else {
 		sign = -1;
 	}
 
-	Vector3 ret = b + rayDirection * (sign * sqrt((radius * radius)-(cMag * cMag)));
-	return ret.getMagnitude();
+	Vector3 ret = b + rayDirection * (sign * sqrt((squaRad)-(csqMag)));
+	distance = ret.getMagnitude();
+	return distance;
 }
 
 void Sphere::collideWith(Ray* ray)

@@ -45,6 +45,7 @@ Vector3 Refractive::bounce(Vector3 rayIn, Vector3 surfaceNormal)
 		Vector3 y = rayIn.projectOnto(surfaceNormal);
 		Vector3 x = rayIn - y;
 
+			
 		y = y * (newCos / cos);
 		x = x * (newSin / sin);
 
