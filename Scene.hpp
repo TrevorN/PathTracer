@@ -4,8 +4,6 @@
 #include "Form.hpp"
 #include "Colour.hpp"
 
-class Form;
-
 class Scene
 {
 

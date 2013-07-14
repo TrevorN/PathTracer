@@ -1,7 +1,7 @@
-#include <cmath>
-#include <iostream>
 #include "Camera.hpp"
 #include "Ray.hpp"
+#include <iostream>
+#include <cmath>
 
 Camera::Camera(Scene* scene, Vector3 location, Vector3 focus, Vector3 up, double focalLen, double topWidth, int resX, int resY, int longevity)
 {

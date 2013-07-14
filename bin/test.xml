@@ -1,0 +1,41 @@
+<scene>
+	<colour>
+		<r>255</r>
+		<g>255</g>
+		<b>255</b>
+	</colour>
+</scene>
+
+<camera>
+	<location>
+		<x>0</x>
+		<y>2</y>
+		<z>3</z>
+	</location>
+	<focus>	
+		<x>0</x>
+		<y>0</y>
+		<z>0</z>
+	</focus>
+	<up>
+		<x>0</x>
+		<y>0</y>
+		<z>1</z>
+	</up>
+	<focalLength>5.0</focalLength>
+	<topWidth>5.0</focalLength>
+	<resX>500</resX>
+	<resY>500</resY>
+	<longevity>5</longevity>
+<camera>
+
+<forms>
+	<sphere>
+		<location>
+			<x>0</x>
+			<y>0</y>
+			<z>0</z>
+		</location>
+		<radius>1</raduis>
+	</sphere>
+</forms>
