@@ -1,13 +1,22 @@
-CXX =  g++ -g
-OBJECTS = Scene.o Vector3.o Main.o Camera.o Ray.o Colour.o Diffuse.o Emissive.o PngFactory.o Sphere.o Mirror.o Cylinder.o Plane.o Triangle.o Refractive.o
+CXX =  clang++
 
-HEADERS = Scene.hpp Vector3.hpp Camera.hpp Ray.hpp Form.hpp Colour.hpp Diffuse.hpp Emissive.hpp PngFactory.hpp Material.hpp Sphere.hpp Mirror.hpp Cylinder.hpp Plane.hpp Triangle.hpp Refractive.hpp
+CFLAGS = -stdlib=libc++ -std=c++11 -march=native -Wall -g -c
 
-CFLAGS = -std=c++11 -lpng
+LFLAGS = -lpng
 
-all : ${OBJECTS}
-	${CXX} ${CFLAGS} -o bin/PathTracer ${OBJECTS} ${HEADERS}
+SOURCES = Scene.cpp Vector3.cpp Main.cpp Camera.cpp Ray.cpp Colour.cpp Diffuse.cpp Emissive.cpp PngFactory.cpp Sphere.cpp Mirror.cpp Cylinder.cpp Plane.cpp Triangle.cpp Refractive.cpp
 
+OBJECTS = $(SOURCES:.cpp=.o)
+
+EXE = bin/PathTracer
+
+all : $(EXE)
+
+$(EXE) : $(OBJECTS)
+	$(CXX) $(LFLAGS) $(OBJECTS) -o $(EXE)
+
+.cpp.o:
+	$(CXX) $(CFLAGS) $< -o $@
 
 clean :
 	rm -rf *.o
