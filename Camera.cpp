@@ -4,7 +4,7 @@
 #include <cmath>
 #include <thread>
 
-Camera::Camera(Scene* scene, Vector3 location, Vector3 focus, Vector3 up, double focalLen, double topWidth, int resX, int resY, int longevity)
+Camera::Camera(Scene* scene, Vector3 location, Vector3 focus, Vector3 up, double focalLen, double blurRadius, double topWidth, int resX, int resY, int longevity)
 {
 	environment = scene;
 	this->location = location;
@@ -43,11 +43,20 @@ void Camera::takeSample()
 		{
 			Vector3 xVec = xDir * ((j * pixWidth) - halfWidth);
 			Vector3 rayVec = rootDir + xVec + yVec;
-			Ray beam = Ray(location, rayVec - location, longevity);
+            //Jitter location for DOF purposes.
+            double xJitter, yJitter, zJitter;
+            if(blurRadius != 0)
+            {
+                xJitter = blurRadius * rand() / RAND_MAX;
+                yJitter = blurRadius * rand() / RAND_MAX;
+                zJitter = blurRadius * rand() / RAND_MAX;
+            } else {
+                xJitter = yJitter = zJitter = 0;
+            }
+            Vector3 jitter(xJitter, yJitter, zJitter);
+			Ray beam = Ray(location + jitter, rayVec - location, longevity);
 			//image[j+resX*i] += image[j+resX*i] * (samplesTaken / (samplesTaken + 1.0)) + (beam.fire(environment)/(samplesTaken + 1.0));
-            imageMutex.lock();
             image[j + resX*i] += beam.fire(environment);
-            imageMutex.unlock();
         }
 	}
 	samplesTaken++;

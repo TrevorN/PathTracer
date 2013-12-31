@@ -1,6 +1,6 @@
 CXX =  clang++
 
-CFLAGS = -stdlib=libc++ -std=c++11 -march=native -Wall -g -c
+CFLAGS = -stdlib=libc++ -std=c++11 -march=native -Wall -O3 -g -c
 
 LFLAGS = -lpng
 
