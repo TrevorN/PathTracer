@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <cmath>
 
-Sphere::Sphere(Vector3 location, Vector3 rotation, Vector3 up, double radius, Material* material)
+Sphere::Sphere(Vector3 location, double radius, Material* material)
 {
 	this->location = location;
 	this->rotation = rotation.normalize();

@@ -3,7 +3,8 @@
 
 class Vector3{
 		double comps[3];
-	public:
+	    double magnitude;
+    public:
 		Vector3(double, double, double);
 		Vector3();
 		double getMagnitude();

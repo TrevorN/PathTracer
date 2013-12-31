@@ -17,7 +17,7 @@ Vector3::Vector3()
 
 double Vector3::getMagnitude()
 {
-	return sqrt((comps[0] * comps[0]) + (comps[1] * comps[1]) + (comps[2] * comps[2]));
+	return magnitude = sqrt((comps[0] * comps[0]) + (comps[1] * comps[1]) + (comps[2] * comps[2]));
 }
 
 Vector3 Vector3::normalize()
