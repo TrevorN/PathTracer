@@ -2,6 +2,11 @@
 #include "Ray.hpp"
 #include <iostream>
 #include <cmath>
+#include <mutex>
+#include <thread>
+#include <functional>
+
+std::mutex imageMutex;
 
 Camera::Camera(Scene* scene, Vector3 location, Vector3 focus, Vector3 up, double focalLen, double topWidth, int resX, int resY, int longevity)
 {
@@ -53,12 +58,41 @@ void Camera::takeSample()
 			Vector3 rayVec = rootDir + xVec + yVec;
 			Ray beam = Ray(location, rayVec - location, longevity);
 			//image[j+resX*i] += image[j+resX*i] * (samplesTaken / (samplesTaken + 1.0)) + (beam.fire(environment)/(samplesTaken + 1.0));
-			image[j + resX*i] += beam.fire(environment);
-		}
+			Colour sample = beam.fire(environment);
+            imageMutex.lock();
+            image[j + resX*i] += sample;
+		    imageMutex.unlock();
+        }
 	}
 
 	samplesTaken++;
 	
+}
+
+void Camera::takeSamples(int &sampleCounter)
+{
+    while(true)
+    {
+        if(sampleCounter <= 0)
+            break;
+        sampleCounter++;
+        takeSample();
+    }
+}
+
+void Camera::capture(int numThreads, int numSamples)
+{
+   int count = numSamples;
+   std::thread* threads = new std::thread[numThreads];
+   for(int i = 0; i < numThreads; i++)
+   {
+       threads[i] = std::thread(std::bind(&Camera::takeSamples, this, std::ref(count)));
+   }
+   for(int i = 0; i < numThreads; i++)
+   {
+       threads[i].join();
+   }
+   delete threads;
 }
 
 Colour* Camera::getImage()

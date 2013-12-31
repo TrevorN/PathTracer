@@ -17,23 +17,14 @@
 
 using namespace std;
 
-void renderThread(Camera *cam, int numSamples)
-{
-	for(int i = 0; i < numSamples; i++)
-	{
-		std::cout << "taking sample";
-		cam->takeSample();
-	}
-}
-
 int main()
 {
-	int numThreads = 4;
+    int numThreads = 4;
 
 	int resX = 1024;
 	int resY = 1024;
 
-	int numSamples = 5;
+	int numSamples = 100;
 
 	double focalLen = 2;
 	double topWidth = 33;
@@ -53,7 +44,6 @@ int main()
 	for(int i = 0; i<5; i++){
 		theScene->addForm(refr[i]);
 	}
-//	Sphere* sur = new Sphere(Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), 60, new Diffuse(Colour(50, 5, 7), 0.9));
 	Sphere* spheres[36];
 	for(int i = 0; i < 6; i++){
 		for(int j = 0; j < 6; j++){
@@ -85,27 +75,14 @@ int main()
 
 	PngFactory establishment = PngFactory();
 
-//Create the arrays for the cameras and the threads;
-
-	thread * threads;
-	threads = new thread[numThreads];
-	Camera ** cams;
-	cams = new Camera*[numThreads];
-
 //Create the cameras and start running the threads;
 
-	for(int i = 0; i < numThreads; i++)
+	for(int i = 0; i < numSamples; i++)
 	{
-		cams[i] = new Camera(theScene, Vector3(40, 40, 20), Vector3(0, 0, 0), Vector3(0, 0, 1), focalLen, topWidth, resX, resY, 16);
-		threads[i] = thread(renderThread, cams[i], numSamples);
-	}
-
-//Join all of the threads
-
-	for(int i = 0; i < numThreads; i++)
-	{
-		threads[i].join();
-	}
+        cout << "Taking Sample:" << i << "\n";
+        cam.takeSample();
+	    cout << "Took Sample: " << i << "\n";
+    }
 
 //Prepare the final image
 
@@ -113,16 +90,7 @@ int main()
 
 //Average in the results from all of the cameras
 
-	for(int i = 0; i < numThreads; i++)
-	{
-		Colour * tmpImage = cams[i]->getImage();
-		for(int j = 0; j < resX * resY; j++)
-		{
-			finalImage[j] += tmpImage[j] / numThreads;
-		}
-	}
-
-	establishment.makePng(finalImage, resX, resY, "test.png");
+	establishment.makePng(cam.getImage(), resX, resY, "test.png");
 
 	return 0;
 }

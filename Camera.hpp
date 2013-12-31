@@ -13,12 +13,13 @@ class Camera
 		int resX, resY, aaDepth, samplesTaken, longevity;
 		bool AA;
 		Colour* image;
-
 	public:
 		Camera(Scene*, Vector3, Vector3, Vector3, double, double, int, int, int);
 		Camera(Scene*, Vector3, Vector3, Vector3, double, double, int, int, int, int);
 		~Camera();
 		void takeSample();
+        void takeSamples(int&);
+        void capture(int, int);
 		Colour* getImage();
 };
 #endif
