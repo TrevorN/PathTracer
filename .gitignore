@@ -3,4 +3,5 @@
 *.o
 *.png
 *.swp
+bin/PathTracer
 .DS_Store

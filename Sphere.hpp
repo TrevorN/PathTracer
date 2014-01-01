@@ -10,7 +10,7 @@ class Sphere : public Form
 		double radius;
 		bool inside;
 	public:
-		Sphere(Vector3, Vector3, Vector3, double, Material*);
+		Sphere(Vector3, double, Material*);
 		~Sphere();
 		Sphere(const Sphere&);
 		Sphere& operator=(Sphere);

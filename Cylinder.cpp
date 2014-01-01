@@ -85,7 +85,7 @@ double Cylinder::getDistance(Ray* ray)
 	double dPl = side.dotProduct(up)/rayDirection.dotProduct(up);
 
 	if(((rayDirection * dPl) - side).getMagnitude() < radius){
-		if(dPl < distance || distance == -1 && dPl > 0.000001){
+		if(dPl < distance || (distance == -1 && dPl > 0.000001)){
 			distance = dPl;
 			face = tmpFace;
 		}
