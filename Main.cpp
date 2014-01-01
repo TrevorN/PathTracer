@@ -52,9 +52,9 @@ int main()
 
 	int numSamples = 100;
 
-	double focalLen = 2;
-    double blurRadius = 1.2;
-	double topWidth = 33;
+	double fustrumLen = 5;
+    double blurRadius = 1;
+	double topWidth = 5;
 	Scene* theScene = new Scene(Colour(150, 150, 150));
 
 	Vector3 pointA(0, 0, 6);
@@ -104,17 +104,19 @@ int main()
 
 	PngFactory establishment = PngFactory();
 
-    Camera cam(theScene, Vector3(40, 40, 20), Vector3(0, 0, 0), Vector3(0, 0, 1), focalLen, blurRadius, topWidth, resX, resY, 16);
+    Camera cam(theScene, Vector3(40, 40, 20), Vector3(0, 0, 0), Vector3(0, 0, 1), fustrumLen, Vector3(40, 40, 0).getMagnitude(), blurRadius, topWidth, resX, resY, 16);
 
     time_t start;
     
     time(&start);
     cam.capture(numThreads, numSamples);
-    double seconds = difftime(start,time(NULL));
+    double seconds = difftime(time(NULL), start);
 
     cout << "This took " << seconds << " seconds." << std::endl;
 
 	establishment.makePng(cam.getImage(), resX, resY, "test.png");
+    
+    cout << "\b";
 
 	return 0;
 }

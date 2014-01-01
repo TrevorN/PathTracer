@@ -1,8 +1,8 @@
 CXX =  clang++
 
-CFLAGS = -stdlib=libc++ -std=c++11 -march=native -Wall -O3 -g -c
+CFLAGS = -stdlib=libc++ -std=c++11 -march=native -Wall -O4 -g -c
 
-LFLAGS = -lpng
+LFLAGS = -lpng -O4
 
 SOURCES = Scene.cpp Vector3.cpp Main.cpp Camera.cpp Ray.cpp Colour.cpp Diffuse.cpp Emissive.cpp PngFactory.cpp Sphere.cpp Mirror.cpp Cylinder.cpp Plane.cpp Triangle.cpp Refractive.cpp
 

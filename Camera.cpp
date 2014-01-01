@@ -4,17 +4,19 @@
 #include <cmath>
 #include <thread>
 
-Camera::Camera(Scene* scene, Vector3 location, Vector3 focus, Vector3 up, double focalLen, double blurRadius, double topWidth, int resX, int resY, int longevity)
+Camera::Camera(Scene* scene, Vector3 location, Vector3 focus, Vector3 up, double fustrumLen, double focalLen, double blurRadius, double topWidth, int resX, int resY, int longevity)
 {
 	environment = scene;
 	this->location = location;
 	this->rotation = focus - location;
 	this->rotation = this->rotation.normalize();
-	this->focalLen = focalLen;
+	this->fustrumLen = fustrumLen;
+    this->focalLen = focalLen;
 	this->topWidth = topWidth;
 	this->resX = resX;
 	this->resY = resY;
-	this->longevity = longevity;
+	this->blurRadius = blurRadius;
+    this->longevity = longevity;
 	this->up = rotation.crossProduct(up).crossProduct(rotation).normalize();
 	image = new Colour[resX * resY];
 	samplesTaken.store(0);
@@ -29,7 +31,7 @@ void Camera::takeSample()
 {
 	double pixWidth = topWidth / resX;
 	
-	Vector3 rootDir = rotation * focalLen;
+	Vector3 rootDir = rotation * fustrumLen;
 	Vector3 xDir = rootDir.crossProduct(up).normalize();
 	Vector3 yDir = rootDir.crossProduct(xDir).normalize();
 
@@ -38,23 +40,23 @@ void Camera::takeSample()
 
 	for(int i = 0; i < resY; i++)
 	{
-	Vector3 yVec = yDir * ((i * pixWidth) - halfHeight);
+	    Vector3 yVec = yDir * ((i * pixWidth) - halfHeight);
 		for(int j = 0; j < resX; j++)
 		{
 			Vector3 xVec = xDir * ((j * pixWidth) - halfWidth);
-			Vector3 rayVec = rootDir + xVec + yVec;
+			Vector3 rayVec = (rootDir + xVec + yVec).normalize() * focalLen; //The direction of the ray.
             //Jitter location for DOF purposes.
             double xJitter, yJitter, zJitter;
             if(blurRadius != 0)
             {
-                xJitter = blurRadius * rand() / RAND_MAX;
-                yJitter = blurRadius * rand() / RAND_MAX;
-                zJitter = blurRadius * rand() / RAND_MAX;
+                xJitter = ((blurRadius * rand()) / RAND_MAX) - blurRadius / 2;
+                yJitter = ((blurRadius * rand()) / RAND_MAX) - blurRadius / 2;
+                zJitter = ((blurRadius * rand()) / RAND_MAX) - blurRadius / 2;
             } else {
                 xJitter = yJitter = zJitter = 0;
             }
             Vector3 jitter(xJitter, yJitter, zJitter);
-			Ray beam = Ray(location + jitter, rayVec - location, longevity);
+			Ray beam = Ray(location + jitter, rayVec - jitter, longevity);
 			//image[j+resX*i] += image[j+resX*i] * (samplesTaken / (samplesTaken + 1.0)) + (beam.fire(environment)/(samplesTaken + 1.0));
             image[j + resX*i] += beam.fire(environment);
         }
