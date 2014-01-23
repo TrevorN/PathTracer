@@ -10,19 +10,19 @@ Ray::Ray(Vector3 location, Vector3 direction, int longevity)
 	this->longevity = longevity;
 }
 
-Colour Ray::fire(Scene* scene)
+Colour Ray::fire(const Scene& scene)
 {
 
 	Colour rayColour = Colour(0, 0, 0);
 	while(longevity > 0){
 
-		int corpusSize = scene->formQuantity();
+		int corpusSize = scene.formQuantity();
 		double dist = DBL_MAX;
 		int closestForm = -1;
 
 		for(int i = 0; i < corpusSize; i++)
 		{
-			Form* toCollide = scene->getForm(i);
+			Form* toCollide = scene.getForm(i);
 			double tmpdist;
 			if((tmpdist = toCollide->getDistance(this))!=-1)
 			{
@@ -43,13 +43,13 @@ Colour Ray::fire(Scene* scene)
 
 		if(closestForm == -1)
 		{
-			rayColour += scene->getAmbience();
+			rayColour += scene.getAmbience();
 			break;
 		}
 
 
-		rayColour -= scene->getForm(closestForm)->getColour(this);
-		scene->getForm(closestForm)->collideWith(this);
+		rayColour -= scene.getForm(closestForm)->getColour(this);
+		scene.getForm(closestForm)->collideWith(this);
 		longevity--;
 	}
 

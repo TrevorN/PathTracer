@@ -15,10 +15,10 @@ class Scene
 		Scene();
 		Scene(Colour);
 		~Scene();
-		int formQuantity();
-		Colour getAmbience();
+		int formQuantity() const;
+		Colour getAmbience() const;
 		void addForm(Form*);
-		Form* getForm(int);
+		Form* getForm(int) const;
 };
 
 #endif

@@ -16,18 +16,17 @@ Scene::Scene(Colour ambience)
 	conglomerateForms = new Form*[arraySize];
 }
 
-int Scene::formQuantity(){
-
+int Scene::formQuantity() const
+{
 	return amountOfForms;
-
 }
 
-Form* Scene::getForm(int index)
+Form* Scene::getForm(int index) const
 {
 	return conglomerateForms[index];
 }
 
-Colour Scene::getAmbience()
+Colour Scene::getAmbience() const
 {
 	return ambience;
 }

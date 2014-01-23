@@ -16,7 +16,7 @@ class Ray{
 	public:
 		Ray();
 		Ray(Vector3, Vector3, int);
-		Colour fire(Scene*);
+		Colour fire(const Scene&);
 		void setLongevity(int);
 		void setPosition(Vector3);
 		Vector3 getPosition();
