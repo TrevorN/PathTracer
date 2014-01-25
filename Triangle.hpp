@@ -10,11 +10,9 @@ class Triangle : public Form
     public:
         Triangle(Vector3, Vector3, Vector3, Material*);
         ~Triangle();
-        Triangle(const Triangle&);
-        Triangle& operator=(Triangle);
-        double getDistance(Ray*);
-        void collideWith(Ray*);
-        Colour getColour(Ray*);
+        double getDistance(Ray*) const;
+        void collideWith(Ray*) const;
+        Colour getColour(Ray*) const;
 };
 
 #endif

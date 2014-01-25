@@ -8,13 +8,6 @@ Vector3::Vector3(double xin, double yin, double zin)
 	comps[2] = zin;
 }
 
-Vector3::Vector3()
-{
-    comps[0] = 0;
-    comps[1] = 0;
-    comps[2] = 0;
-}
-
 double Vector3::getMagnitude() const
 {
 	return sqrt((comps[0] * comps[0]) + (comps[1] * comps[1]) + (comps[2] * comps[2]));

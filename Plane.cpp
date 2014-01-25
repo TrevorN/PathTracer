@@ -5,17 +5,16 @@ Plane::Plane(Vector3 location, Vector3 up, Material* material)
 	this->location = location;
 	this->up = up.normalize();
 	this->material = material;
-    this->distance = 0;
 }
 
-double Plane::getDistance(Ray* ray)
+double Plane::getDistance(Ray* ray) const
 {
 	Vector3 rayPosition = ray->getPosition();
 	Vector3 rayDirection = ray->getDirection();
     
     //rayPosition = rayPosition + rayDirection * .1;
     
-    distance = up.dotProduct(location - rayPosition) / up.dotProduct(rayDirection);
+    double distance = up.dotProduct(location - rayPosition) / up.dotProduct(rayDirection);
 
     if(distance < .001)
     {
@@ -25,9 +24,9 @@ double Plane::getDistance(Ray* ray)
     return distance;
 }
 
-void Plane::collideWith(Ray* ray)
+void Plane::collideWith(Ray* ray) const
 {
-
+    double distance = getDistance(ray);
     Vector3 rayPosition = ray->getPosition();
     Vector3 rayDirection = ray->getDirection();
     Vector3 newPosition = rayPosition + (rayDirection.normalize() * distance);
@@ -37,7 +36,7 @@ void Plane::collideWith(Ray* ray)
     ray->setDirection(newDirection);
 }
 
-Colour Plane::getColour(Ray* ray)
+Colour Plane::getColour(Ray* ray) const
 {
     return material->getColour(ray->getDirection(), ray->getPosition());
 }

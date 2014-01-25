@@ -7,14 +7,11 @@
 Sphere::Sphere(Vector3 location, double radius, Material* material)
 {
 	this->location = location;
-	this->rotation = rotation.normalize();
-	this->up = rotation.crossProduct(up).crossProduct(rotation).normalize();
 	this->radius = radius;
 	this->material = material;
-	this->distance = 0;
 }
 
-double Sphere::getDistance(Ray* ray)
+double Sphere::getDistance(Ray* ray) const
 {
 	Vector3 rayDirection = ray->getDirection();
 	Vector3 rayPosition = ray->getPosition();
@@ -41,14 +38,12 @@ double Sphere::getDistance(Ray* ray)
 		sign = -1;
 	}
 
-	Vector3 ret = b + rayDirection * (sign * sqrt((squaRad)-(csqMag)));
-	distance = ret.getMagnitude();
-	return distance;
+	return 	(b + rayDirection * (sign * sqrt((squaRad)-(csqMag)))).getMagnitude();
 }
 
-void Sphere::collideWith(Ray* ray)
+void Sphere::collideWith(Ray* ray) const
 {
-	//double distance = getDistance(ray);
+	double distance = getDistance(ray);
 	if(distance == -1)
 	{
 		std::cout << "Something went horribly, horribly wrong. Goodbye world. \n";
@@ -66,7 +61,7 @@ void Sphere::collideWith(Ray* ray)
 
 }
 
-Colour Sphere::getColour(Ray* ray)
+Colour Sphere::getColour(Ray* ray) const
 {
 
 	return material->getColour(ray->getDirection(), ray->getPosition());

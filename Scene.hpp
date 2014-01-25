@@ -3,22 +3,20 @@
 
 #include "Form.hpp"
 #include "Colour.hpp"
+#include <vector>
+#include <utility>
 
 class Scene
 {
-
-		int amountOfForms;
-		int arraySize;
 		Colour ambience;
-		Form** conglomerateForms;
+		std::vector<Form*> conglomerateForms;
 	public:
-		Scene();
-		Scene(Colour);
-		~Scene();
+		Scene(Colour = Colour(255, 255, 255));
 		int formQuantity() const;
 		Colour getAmbience() const;
 		void addForm(Form*);
 		Form* getForm(int) const;
+		void generateBVH();
 };
 
 #endif

@@ -4,23 +4,19 @@
 #include "Vector3.hpp"
 #include "Ray.hpp"
 #include "Material.hpp"
+#include "AABB.hpp"
 
 class Ray;
 
 class Form
 {
-
 	protected:
 		Material* material;
-		Vector3 location, rotation, up;
-		double distance;
-
+		AABB boundingBox;
 	public:
-
-		virtual double getDistance(Ray*) = 0;
-		virtual void collideWith(Ray*) = 0;
-		virtual Colour getColour(Ray*) = 0;
-
+		virtual double getDistance(Ray*) const = 0;
+		virtual void collideWith(Ray*) const = 0;
+		virtual Colour getColour(Ray*) const = 0;
 };
 
 #endif

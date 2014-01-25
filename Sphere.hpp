@@ -7,16 +7,14 @@
 
 class Sphere : public Form
 {
+		Vector3 location;
 		double radius;
-		bool inside;
-	public:
+			public:
 		Sphere(Vector3, double, Material*);
 		~Sphere();
-		Sphere(const Sphere&);
-		Sphere& operator=(Sphere);
-		double getDistance(Ray*);
-		void collideWith(Ray*);
-		Colour getColour(Ray*);
+		double getDistance(Ray*) const;
+		void collideWith(Ray*) const;
+		Colour getColour(Ray*) const;
 };
 
 #endif

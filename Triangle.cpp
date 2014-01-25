@@ -9,15 +9,14 @@ Triangle::Triangle(Vector3 pointA, Vector3 pointB, Vector3 pointC, Material* mat
 	this->location = (pointA + pointB + pointC) * (1.0 / 3.0);
 	this->up = (pointA - location).crossProduct(pointB - location);
 	this->material = material;
-	this->distance = 0;
 }
 
-double Triangle::getDistance(Ray* ray)
+double Triangle::getDistance(Ray* ray) const
 {
 	Vector3 rayDirection = ray->getDirection();
 	Vector3 rayPosition = ray->getPosition();
 
-	distance = up.dotProduct(location - rayPosition) / up.dotProduct(rayDirection);
+	double distance = up.dotProduct(location - rayPosition) / up.dotProduct(rayDirection);
 
 	if(distance < .001)
 	{
@@ -38,8 +37,9 @@ double Triangle::getDistance(Ray* ray)
 	return -1;
 }
 
-void Triangle::collideWith(Ray* ray)
+void Triangle::collideWith(Ray* ray) const
 {
+	double distance = getDistance(ray);
 	Vector3 rayPosition = ray->getPosition();
 	Vector3 rayDirection = ray->getDirection();
 	Vector3 newPosition = rayPosition + (rayDirection.normalize() * distance);
@@ -55,7 +55,7 @@ void Triangle::collideWith(Ray* ray)
 	ray->setDirection(newDirection);
 }
 
-Colour Triangle::getColour(Ray* ray)
+Colour Triangle::getColour(Ray* ray) const
 {
 	return material->getColour(ray->getDirection(), ray->getPosition());
 }

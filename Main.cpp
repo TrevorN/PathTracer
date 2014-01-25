@@ -3,7 +3,6 @@
 #include "Vector3.hpp"
 #include "PngFactory.hpp"
 #include "Sphere.hpp"
-#include "Cylinder.hpp"
 #include "Mirror.hpp"
 #include "Diffuse.hpp"
 #include "Emissive.hpp"
@@ -47,13 +46,18 @@ int main()
 {
 	int numThreads = 4;
 
-    //int resX = 200;
-    //int resY = 150;
-	int resX = 1280;
-	int resY = 800;
+    int resX, resY, numSamples;
 
-	int numSamples = 200;
-    //int numSamples = 100;
+    if(false)
+    {
+        resX = 200;
+        resY = 150;
+        numSamples = 100;
+    } else {
+        resX = 1280;
+        resY = 800;
+        numSamples = 200;
+    }
 
 	double fustrumLen = 5;
     double blurRadius = 1;
@@ -81,7 +85,7 @@ int main()
     double seconds = difftime(time(NULL), start);
 
     cout << "This took " << seconds << " seconds." << std::endl;
-
+    PngFactory establishment;
 	establishment.makePng(cam.getImage(), resX, resY, "test.png");
     
     cout << "\b";

@@ -4,8 +4,7 @@
 class Vector3{
         double comps[3];
     public:
-        Vector3(double, double, double);
-        Vector3();
+        Vector3(double = 0, double = 0, double = 0);
         double getMagnitude() const;
         Vector3 normalize() const;
         Vector3 crossProduct(const Vector3&) const;

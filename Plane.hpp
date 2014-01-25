@@ -6,14 +6,13 @@
 
 class Plane : public Form
 {
+		Vector3 location, up;
 	public:
 		Plane(Vector3, Vector3, Material*);
 		~Plane();
-		Plane(const Plane&);
-		Plane& operator=(Plane);
-		double getDistance(Ray*);
-		void collideWith(Ray*);
-		Colour getColour(Ray*);
+		double getDistance(Ray*) const;
+		void collideWith(Ray*) const;
+		Colour getColour(Ray*) const;
 };
 
 #endif
